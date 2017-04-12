@@ -54,7 +54,7 @@ For use bellerophon you can build it from source, as follow:
 
 Or you can use docker image for build a [container](https://github.com/ntonjeta/iidea-Docker)
 
-### How To Use ###i
+### How To Use ###
 Running the Bellerophon tool without input parameters print this short helper:
 
     OVERVIEW: Launch a design space exploration over a C/C++ project compiled just-in-time
