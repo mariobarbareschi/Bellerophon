@@ -23,10 +23,9 @@
  * @file    main.cpp
  * @author  Antonio Tammaro
  * @date    3 gen 2017
- * @brief   Bellerophont main file.
+ * @brief   Bellerophon Tool implementation.
  * @details Basic steps:
- *          - Execute an external function
- *          -
+ *          - TODO
  ******************************************************************************/
 // Tools Header
 #include "Tool/BellerophonTool.h"
@@ -40,6 +39,8 @@
 
 using namespace bellerophon;
 
+const char *overview =
+"Launch a design space exploration over a C/C++ project compiled just-in-time\n";
 
 static ::llvm::cl::OptionCategory catBellerophon("Bellerophon",
                                           "Options for the Bellerophon tool");
@@ -149,6 +150,15 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
   
   // Initilaze the log system
   log::BellerophonLogger::init();
+    
+  // Arguments Parsing
+  // If there aren't, show the help
+  if (argc == 1) {
+    argc = 2;
+    const char *help[2] = {argv[0], "-help"};
+    ::clang::tooling::CommonOptionsParser helpOption(argc, help, catBellerophon,
+                                                         overview);
+  }
 
   log::BellerophonLogger::verbose(::std::to_string(argc)); 
 
@@ -162,7 +172,7 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
   }
 
   if(!optTau){
-    log::BellerophonLogger::error("<tau> value not insert ");
+    log::BellerophonLogger::error("The maximum error value is missing");
     exit(1); 
   }
     double tau = optTau;
@@ -208,13 +218,13 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
   if(!cDatabasePath.empty()){
     path = cDatabasePath;
   }else{  
-    log::BellerophonLogger::error("Compilation Databese Path not present");
+    log::BellerophonLogger::error("The Compilation Databese Path is missing");
     exit(1);
   }
 
   // Initialize Execution Engine 
   if (!this->Context.initExecutionEngine(path)) {
-    log::BellerophonLogger::fatal("can't initializze Execution Engine");
+    log::BellerophonLogger::fatal("Cannot initialize the Execution Engine");
     exit(1);
   }
    
@@ -247,7 +257,7 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
     log::BellerophonLogger::verbose("Read Context " + it->first().str());
     ctx = it->second;
   }else{
-    log::BellerophonLogger::error("Can't read approximate technique");
+    log::BellerophonLogger::error("Cannot read approximate technique");
     exit(1);
   }
   
@@ -255,7 +265,7 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
     // Intialize with Report
     ctx->readReport(Report); 
   }else{
-    log::BellerophonLogger::error("Report path not insert");
+    log::BellerophonLogger::error("Report path is missing");
     exit(1);
   }
   // Set AprxContext in Evolution

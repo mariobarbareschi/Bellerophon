@@ -22,10 +22,9 @@
  * @file    main.cpp
  * @author  Antonio Tammaro
  * @date    3 gen 2017
- * @brief   Bellerophont main file.
- * @details Basic steps:
- *          - Execute an external function
- *          -
+ * @brief   Bellerophon Tool header file.
+ * @details See the implementation file:
+ *
  ******************************************************************************/
 #ifndef BELLEROPHON_TOOL_H
 #define BELLEROPHON_TOOL_H

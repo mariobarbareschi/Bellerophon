@@ -23,7 +23,7 @@
  * @file    main.cpp
  * @author  Antonio Tammaro
  * @date    3 gen 2017
- * @brief   Bellerophont main file.
+ * @brief   Bellerophon main file.
  * @details Basic steps:
  *          - Execute an external function
  *          -
@@ -45,6 +45,7 @@ using namespace bellerophon;
 main(int argc, const char *argv[]) {
   tool::BellerophonTool bellerophontool;
 
+  //Register user's plugins
   bellerophontool.registerAprxContext(getFlapAprxContext());
   bellerophontool.registerAprxContext(getLoopAprxContext());
   // run tool 
