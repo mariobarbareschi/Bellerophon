@@ -7,7 +7,7 @@
 ------------
 
 
-Bellerophon is a genetic optimization tools for approximate computing.
+Bellerophon is a genetic optimization tool for approximate computing.
 It is meant for using in collaboration with [clang-Chimera](https://github.com/ntonjeta/clang-chimera). Indeed, Clang-Chimera provides the code mutation feature, while Bellerophon uses Genetic Algorithm for explore approximate variants and finds the pareto-frontier solutions. Bellerophon includes the [ParadisEO](http://paradiseo.gforge.inria.fr/) metaheuristic framework.
 
 For more details about Bellerophon, visit the website [void](null)
