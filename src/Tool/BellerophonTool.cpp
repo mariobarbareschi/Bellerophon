@@ -52,10 +52,10 @@ static ::llvm::cl::OptionCategory catBellerophon("Bellerophon",
   ::llvm::cl::ValueRequired,
   ::llvm::cl::desc("<tau>"));
 
-::llvm::cl::opt<::std::string> cDatabasePath("p",
-  ::llvm::cl::desc("Specify the path of the parent directory of a compile_database.json file"),
+::llvm::cl::opt<::std::string> cDatabasePath("cd-dir",
+  ::llvm::cl::desc("Specify the path of a parent directory in which search for a compile_database.json file"),
   ::llvm::cl::ValueRequired,
-  ::llvm::cl::value_desc("path"),
+  ::llvm::cl::value_desc("cd-dir"),
   ::llvm::cl::cat(catBellerophon));
 
 ::llvm::cl::opt<bool> optVerbose("v", 
