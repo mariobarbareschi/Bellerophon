@@ -57,34 +57,34 @@ Or you can use docker image for build a [container](https://github.com/ntonjeta/
 #### How To Use ####
 Running the Bellerophon tool without input parameters print this short helper:
 
-OVERVIEW: Launch a design space exploration over a C/C++ project compiled just-in-time
+	OVERVIEW: Launch a design space exploration over a C/C++ project compiled just-in-time
 
-USAGE: bellerophon [subcommand] [options] <tau> <source0> [... <sourceN>]
+	USAGE: bellerophon [subcommand] [options] <tau> <source0> [... <sourceN>]
 
-OPTIONS:
+	OPTIONS:
 
-Bellerophon:
-Options for the Bellerophon tool
+	Bellerophon:
+	Options for the Bellerophon tool
 
-  -P=<path>                                 - Specify the path of the parent directory of a .param file
-  -arcs=<archive object-path>               - Specify an archive object, or multiple comma separated, to load when linking the executable. It can be specified multiple times
-  -cd-dir=<cd-dir>                          - Specify the path of a parent directory in which search for a compile_database.json file
-  -extra-arg=<string>                       - Additional argument to append to the compiler command line
-  -extra-arg-before=<string>                - Additional argument to prepend to the compiler command line
-  -l                                        - Show approximate technique list
-  -libdb=<string>                           - Specify the patch in which of the parent directory of a library_database.csv file
-  -objs=<path to object file ('.o' , '.so'> - Specify an object, or multiple comma separated, to load when linking the executable. It can be specified multiple times
-  -p=<string>                               - Build path
-  -r=<string>                               - Report produced by Approximation Operator
-  -t=<string>                               - Select the approximate technique to apply
-  -test                                     - Simple test
-  -v                                        - Enable verbose outputs
+ 	 -P=<path>                                 - Specify the path of the parent directory of a .param file
+ 	 -arcs=<archive object-path>               - Specify an archive object, or multiple comma separated, to load when linking the executable. It can be specified multiple times
+  	-cd-dir=<cd-dir>                          - Specify the path of a parent directory in which search for a compile_database.json file
+ 	 -extra-arg=<string>                       - Additional argument to append to the compiler command line
+ 	 -extra-arg-before=<string>                - Additional argument to prepend to the compiler command line
+ 	 -l                                        - Show approximate technique list
+  	-libdb=<string>                           - Specify the patch in which of the parent directory of a library_database.csv file
+  	-objs=<path to object file ('.o' , '.so'> - Specify an object, or multiple comma separated, to load when linking the executable. It can be specified multiple times
+  	-p=<string>                               - Build path
+ 	 -r=<string>                               - Report produced by Approximation Operator
+ 	 -t=<string>                               - Select the approximate technique to apply
+ 	 -test                                     - Simple test
+  	-v                                        - Enable verbose outputs
 
-Generic Options:
+	Generic Options:
 
-  -help                                     - Display available options (-help-hidden for more)
-  -help-list                                - Display list of available options (-help-list-hidden for more)
-  -version                                  - Display the version of this program
+  	-help                                     - Display available options (-help-hidden for more)
+  	-help-list                                - Display list of available options (-help-list-hidden for more)
+ 	 -version                                  - Display the version of this program
 
 Bellerophon takes some inputs for testing the approimate variants.
 First, with -cd-dir flag it takes a [compilation database](http://clang.llvm.org/docs/JSONCompilationDatabase.html), useful for provide compilation commands to the JIT engine.
