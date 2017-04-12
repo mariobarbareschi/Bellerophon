@@ -106,7 +106,7 @@ void bellerophon::core::EvolutionContext::initializeEvolution
   char *argv[2];
   argv[0] = new (char[4]);
   argv[1] = new (char[param.size()]);
-  argv[0] = "main";
+  strcpy(argv[0], "main");
   if(!param.empty()){
     argc = 2; 
     strcpy(argv[1], param.c_str());

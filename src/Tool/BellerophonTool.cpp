@@ -34,6 +34,9 @@
 #include "Log.h"
 // LLVM Header
 #include "llvm/Support/CommandLine.h"
+
+#include "clang/Tooling/CommonOptionsParser.h"
+
 // C/C++ Header
 #include <cstdlib>
 
