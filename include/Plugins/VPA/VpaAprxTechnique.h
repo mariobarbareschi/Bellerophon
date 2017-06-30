@@ -34,9 +34,9 @@
 
 namespace vpa
 {
-enum OperationType { ADD, SUB, MUL, DIV };
+enum vpaOperation { ADD, SUB, MUL, DIV };
 
-enum OperationRetType { FLOAT, DOUBLE };
+enum vpaMacroType { FLOAT, DOUBLE };
 }
 
 using namespace vpa;
@@ -47,8 +47,8 @@ public:
   // Default ctor
   VpaAprxTechnique (unsigned id,
                      const ::std::string opId,
-                     OperationRetType rtTy = FLOAT,
-                     OperationType ty = ADD )
+                     vpa::vpaMacroType rtTy = vpa::vpaMacroType::FLOAT,
+                     vpa::vpaOperation ty = vpa::vpaOperation::ADD )
     : AprxTechnique (id),OpId(opId),OpRetTy(rtTy),OpTy(ty) {
   }
 
@@ -108,8 +108,8 @@ public:
 
 private:
   ::std::string OpId;        ///< Identifier of the operation
-  OperationRetType OpRetTy;  ///< Which return type
-  OperationType OpTy;        ///< Which operation
+  vpa::vpaMacroType OpRetTy;  ///< Which return type
+  vpa::vpaOperation OpTy;        ///< Which operation
 };
 
 #endif /* INCLUDE_IIDEAA_VPAAPRXTECHNIQUE_H_ */

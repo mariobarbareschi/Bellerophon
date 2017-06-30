@@ -23,25 +23,30 @@ typedef __int128_t int128_t;
 #define INT128_MASK_HIGHER_HIGH(num)  (INT128_MASK_LOWER_LOW(128 - num))
 
 // I/O functions
+#ifndef print_uint128_hex(val)
 #define print_uint128_hex(val) \
   do {\
     printf("%016lx", (uint64_t) (val >> 64));\
     printf("%016lx", (uint64_t) val);\
   } while(0)
+inline ::std::ostream& operator<<(::std::ostream& out, uint128_t val) {
+    out << ::std::setw(16) << ::std::setfill('0') << ::std::hex
+    << (uint64_t) (val >> 64);
+    out << ::std::setw(16) << ::std::setfill('0') << ::std::hex << (uint64_t) val
+    << ::std::dec;
+    return out;
+}
+#endif
 
+#ifndef print_int128_hex(val)
 #define print_int128_hex(val) print_uint128_hex(val)
 
-inline ::std::ostream& operator<<(::std::ostream& out, uint128_t val) {
-  out << ::std::setw(16) << ::std::setfill('0') << ::std::hex
-      << (uint64_t) (val >> 64);
-  out << ::std::setw(16) << ::std::setfill('0') << ::std::hex << (uint64_t) val
-      << ::std::dec;
-  return out;
-}
 inline ::std::ostream& operator<<(::std::ostream& out, int128_t val) {
   out << (uint128_t)val;
   return out;
 }
+#endif
+
 #endif
 ///////////////////////////////////////////////////////////////////////////////
 

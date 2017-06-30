@@ -441,6 +441,9 @@ bool bellerophon::engine::ExecutionEngineHelper::hasCompileCommand(
   return hasIt;
 }
 
+bool bellerophon::engine::ExecutionEngineHelper::checkFunction(::llvm::StringRef funcName){
+    return 0 != this->ee->getFunctionAddress(funcName);
+}
 
 // IMPORTANTE
 int bellerophon::engine::ExecutionEngineHelper::runFunction(
@@ -456,7 +459,7 @@ int bellerophon::engine::ExecutionEngineHelper::runFunction(
 
   // - funcName exists in the loaded modules
   // Calling getFunctionAddress it also create al the necessary code
-  if (this->ee->getFunctionAddress(funcName) == 0) {
+  if (!this->checkFunction(funcName)) {
 //    llvm::errs() << funcName << " function not found in modules.\n";
     return 1;
   }

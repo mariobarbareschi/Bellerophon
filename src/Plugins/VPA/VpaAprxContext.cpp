@@ -59,7 +59,7 @@ using namespace vpa;
   ::std::shared_ptr<vpaContext::VpaAprxContext> r
     (
       new vpaContext::VpaAprxContext(
-        "VPAAprx",                     // Id
+        "VpaAprx",                     // Id
         "VPA approximation plugin")    // Description
     );
   return r;
@@ -106,15 +106,15 @@ bool vpaContext::VpaAprxContext::readReport(::std::string reportPath)
       "Operand 1: " + Op1 + ", Operand 2: " + Op2 +
       ", Return Operand: " + OpRet + ".\n\n");
 
-    OperationRetType retTy = ::vpa::::FLOAT;
+    vpaMacroType retTy = ::vpa::vpaMacroType::FLOAT;
     if (OpRetTy == "DOUBLE") {
-      retTy = ::vpa::OperationRetType::DOUBLE;
+      retTy = ::vpa::vpaMacroType::DOUBLE;
     }
     
-    OperationType Ty = ADD;
-    if(OpTy == "SUB")       Ty = SUB;
-    else if(OpTy == "MUL")  Ty = MUL;
-    else if(OpTy == "DIV")  Ty = DIV;
+    vpa::vpaOperation Ty = vpa::vpaOperation::ADD;
+    if(OpTy == "SUB")       Ty = vpa::vpaOperation::SUB;
+    else if(OpTy == "MUL")  Ty = vpa::vpaOperation::MUL;
+    else if(OpTy == "DIV")  Ty = vpa::vpaOperation::DIV;
     // Build an instance of VpaAprxTechnique 
     VpaAprxTechnique  c(this->LocStartId,OpId,retTy,Ty);
     this->LocStartId++;

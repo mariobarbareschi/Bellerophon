@@ -258,6 +258,18 @@ void ::bellerophon::core::EvolutionContext::printResult()
     bellerophon::log::BellerophonLogger::info("Final Archive");
     this->arch.sortedPrintOn (std::cout);
     ::std::cout << "\n";
+    
+    bellerophon::log::BellerophonLogger::info("Acceptable solutions:");
+    int approxNumber = this->arch[0].size();
+    ::std::cout << "Error \tReward \tPenalty\t#OP \t";
+    for(int i = 0; i < approxNumber; i++){
+        ::std::cout << "OP_"+::std::to_string(i) << "\t";
+    }
+    ::std::cout << ::std::endl;
+    for(aprx a : this->arch){
+        if(a.objectiveVector()[0] < this->eval.getTau())
+            ::std::cout << a << std::endl;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -268,8 +280,9 @@ void ::bellerophon::core::EvolutionContext::printResult()
 
 double bellerophon::core::aprxEval::getError(::bellerophon::core::aprx &_aprx)
 {
-  ::std::vector<uint64_t> addrs;
 
+    if(!approximationApplied){
+    ::std::vector<uint64_t> addrs;
   // Iterate on locations
   int i = 0;
   for (const auto &loc : this->locations) {
@@ -280,22 +293,26 @@ double bellerophon::core::aprxEval::getError(::bellerophon::core::aprx &_aprx)
     loc.technique->applyApproximation(_aprx[i], addrs);
     i++;
   }
+    
+  approximationApplied = true;
+}
 
   ::llvm::GenericValue rv;
   if (this->eeHelper.runFunction(rv, "BELLERO_getError") != 0){
-    bellerophon::log::BellerophonLogger::error("Cannot launch BELLERO_getError");
+    bellerophon::log::BellerophonLogger::error("Cannot launch BELLERO_getError. User must provide it!");
     exit(1);
   }
   // Constraint Evalutation, modify the fitness function. 
   // if error is major of tau assign high value.
 
   double error = rv.DoubleVal; 
-  if(error >= this->tau) error = DBL_MAX; 
+  //if(error >= this->tau) error = DBL_MAX; 
   return error;
 }
 
 double bellerophon::core::aprxEval::Reward(::bellerophon::core::aprx &_aprx)
 {
+    if(!approximationApplied){
   ::std::vector<uint64_t> addrs;
 
   // Iterate on locations
@@ -308,6 +325,8 @@ double bellerophon::core::aprxEval::Reward(::bellerophon::core::aprx &_aprx)
     loc.technique->applyApproximation(_aprx[i], addrs);
     i++;
   }
+    approximationApplied = true;
+}
 
   ::llvm::GenericValue rv;
   if (this->eeHelper.runFunction(rv, "BELLERO_Reward") != 0){
@@ -318,6 +337,9 @@ double bellerophon::core::aprxEval::Reward(::bellerophon::core::aprx &_aprx)
 
 double bellerophon::core::aprxEval::Penality(::bellerophon::core::aprx &_aprx)
 {
+    if (this->eeHelper.checkFunction(::llvm::StringRef("BELLERO_Penality")) == 0) 
+        return 0.0;
+    if(!approximationApplied){
   ::std::vector<uint64_t> addrs;
 
   // Iterate on locations
@@ -330,6 +352,8 @@ double bellerophon::core::aprxEval::Penality(::bellerophon::core::aprx &_aprx)
     loc.technique->applyApproximation(_aprx[i], addrs);
     i++;
   }
+ approximationApplied = true;
+}
 
   ::llvm::GenericValue rv;
   if (this->eeHelper.runFunction(rv, "BELLERO_Penality") != 0){

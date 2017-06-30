@@ -53,23 +53,35 @@ void VpaAprxTechnique::applyApproximation(
     ::core::AprxGrade g, ::std::vector<uint64_t> addrs) const
 {
   // Take the maximum
-  unsigned short expPrec = 11;
-  unsigned short maxMantPrec = 52;
+  unsigned short actualGrade = 0;
   if (this->OpRetTy == FLOAT) {
-    expPrec = 8;
-    maxMantPrec = 23;
+    actualGrade = 1;
   }
 
-  assert(g <= maxMantPrec); // Precondition
+  assert(g <= 3); // Precondition
 
   ::vpa::FloatingPointPrecision *p = (::vpa::FloatingPointPrecision *)addrs.at(0);
 
+  std::stringstream stream;
+  stream << "0x" 
+         << std::setfill ('0') << std::setw(sizeof(void*)*2) 
+         << std::hex << addrs.at(0);
+    
   log::BellerophonLogger::verbose(
-    "Address: " + ::std::to_string(addrs.at(0)) +
+    this->OpId+" @ Address: " + stream.str() +
     " - Prec("  +::std::to_string(p->exp_size) + ":" + ::std::to_string(p->mant_size) +
     ")\n");
-
-  *p = ::vpa::FloatingPointPrecision(expPrec, maxMantPrec - g);
+    
+    log::BellerophonLogger::verbose( "Actual grade: " + ::std::to_string(actualGrade) +
+    "; Required grade: "+ ::std::to_string(g) +"\n");
+    
+    actualGrade+=g;
+    if(g == 0) //DOUBLE
+        *p = ::vpa::double_prec;
+    else if(g == 1) //FLOAT
+        *p = ::vpa::float_prec;
+    else if(g == 2) //HALF
+        *p = ::vpa::half_prec;
 
   log::BellerophonLogger::verbose(
     "After approximation: " + ::std::to_string(p->exp_size) +

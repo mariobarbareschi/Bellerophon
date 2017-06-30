@@ -69,7 +69,7 @@ public:
   }
   static unsigned int nObjectives ()
   {
-    return 2;
+    return 3;
   }
 };
 
@@ -117,11 +117,15 @@ public:
   /// \brief define fitness function 
   void operator () (aprx & _aprx)
   {
+  
     if (_aprx.invalidObjectiveVector())
     {
+        //by setting approximationApplied to false we force the objective functions to
+        //apply the new set of approximations
+      approximationApplied = false;
       aprxObjectiveVector objVec;
-      objVec[1] = Reward(_aprx);
       objVec[0] = getError(_aprx);
+      objVec[1] = Reward(_aprx);
       objVec[2] = Penality(_aprx);
       _aprx.objectiveVector(objVec);
     }
@@ -135,6 +139,10 @@ public:
   
   void setTau(double tau){
     this->tau = tau;
+  }
+  
+  double getTau(){
+    return this->tau;
   }
 
   bool setCDatabase(const ::std::string &cdpath){
@@ -191,6 +199,10 @@ private:
   double Reward(aprx & _aprx);
 
   double tau;
+  
+  //It takes into account the fact that it is necessary to mutate the binary code
+  //whenever a new set of approximations is set
+  bool approximationApplied = false;;
 
   ::bellerophon::core::AprxLocationVector locations;
   ::bellerophon::engine::ExecutionEngineHelper eeHelper;

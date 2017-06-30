@@ -121,6 +121,17 @@ public:
     ///         1 otherwise
     int runFunction ( ::llvm::GenericValue& retval, ::llvm::StringRef funcName,
                       ::llvm::ArrayRef<::llvm::GenericValue> args = ::llvm::None );
+                      
+    /// \brief Given a function name defined somewhere in the source files,
+    /// it checks if it exists,
+    /// \details Using the JIT compiler of LLVM, the necessary files are
+    /// just-in-time compiled, and
+    ///  then it is performed a linking phase.
+    /// \param funcName Name of the function to execute, it should be defined in
+    /// the source files
+    /// \return true if the function exists
+    ///         false otherwise
+    bool checkFunction ( ::llvm::StringRef funcName);
 
     /// \brief Same as runFunction but it previous performs the compilation
     int compileAndRunFunction (
