@@ -178,7 +178,7 @@ public:
         }
         if(has_suffix(lib, ".a")){
           ::llvm::outs() <<  "Adding " << lib << "\n";
-          this->eeHelper.addArchivePath ( libDbPath+"libs.a/  "+lib );
+          this->eeHelper.addArchivePath ( libDbPath+"libs.a/"+lib );
         }
       }
     }
