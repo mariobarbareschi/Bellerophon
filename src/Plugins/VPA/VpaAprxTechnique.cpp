@@ -58,7 +58,7 @@ void VpaAprxTechnique::applyApproximation(
     actualGrade = 1;
   }
 
-  assert(g <= 3); // Precondition
+  assert( (actualGrade+g) < 3); // Precondition
 
   ::vpa::FloatingPointPrecision *p = (::vpa::FloatingPointPrecision *)addrs.at(0);
 
@@ -76,11 +76,11 @@ void VpaAprxTechnique::applyApproximation(
     "; Required grade: "+ ::std::to_string(g) +"\n");
     
     actualGrade+=g;
-    if(g == 0) //DOUBLE
+    if(actualGrade == 0) //DOUBLE
         *p = ::vpa::double_prec;
-    else if(g == 1) //FLOAT
+    else if(actualGrade == 1) //FLOAT
         *p = ::vpa::float_prec;
-    else if(g == 2) //HALF
+    else if(actualGrade == 2) //HALF
         *p = ::vpa::half_prec;
 
   log::BellerophonLogger::verbose(

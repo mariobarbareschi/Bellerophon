@@ -47,11 +47,11 @@ using namespace vpa;
 
 ::bellerophon::core::AprxGrade vpaContext::VpaAprxContext::getMaxApplicableGrade() const
 {
-  //if (this->OpRetTy == FLOAT) {
-  return 3;
-  //} else if (this->OpRetTy == DOUBLE) {
-    //return 52;
-  //}
+  if (this->OpRetTy == FLOAT) {
+  return 2;
+  } else if (this->OpRetTy == DOUBLE) {
+    return 3;
+  }
   //return 0;
 }
 ::std::shared_ptr<core::AprxContext> getVpaAprxContext()
