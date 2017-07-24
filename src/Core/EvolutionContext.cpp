@@ -117,7 +117,7 @@ void bellerophon::core::EvolutionContext::initializeEvolution
 
   // ** Random  number genrator  Initialization
   int maxGrade = this->aprxContext->getMaxApplicableGrade();
-  eoUniformGenerator<unsigned int> puGen(1,maxGrade);
+  eoUniformGenerator<unsigned int> puGen(0,maxGrade);
   
   // Initialize All Parameter  
 
