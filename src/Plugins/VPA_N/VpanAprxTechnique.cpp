@@ -62,7 +62,8 @@ static std::string vpanApproxGradeToString(const unsigned short i){
 	return std::string("long double");
  else if(i == 1)
 	return std::string("double");
- else std::string("float");
+ else 
+	return std::string("float");
 }
 
 void VpanAprxTechnique::applyApproximation(
