@@ -89,7 +89,7 @@ void VpanAprxTechnique::applyApproximation(
   log::BellerophonLogger::verbose(
     this->OpId+" @ Address: " + stream.str() +
     " - Prec(" + vpanGradeToString(*p) + ")\n");
-   *p = (::vpa_n::VPAPrecision)0;
+   *p = (::vpa_n::VPAPrecision)::vpa_n::VPAPrecision::LONG_DOUBLE;
     
     log::BellerophonLogger::verbose( "Actual grade: " + vpanApproxGradeToString(actualGrade) +
     "; Required grade: "+ vpanApproxGradeToString(actualGrade+g) +"\n");
