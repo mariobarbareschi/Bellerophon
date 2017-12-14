@@ -38,6 +38,8 @@
 #include "Plugins/LoopPerforation/LoopAprxTechnique.h"
 #include "Plugins/VPA/VpaAprxTechnique.h"
 #include "Plugins/VPA/VpaAprxContext.h"
+#include "Plugins/VPA_N/VpanAprxTechnique.h"
+#include "Plugins/VPA_N/VpanAprxContext.h"
 // C/C++ Headers
 #include <cstdlib>
 
@@ -51,6 +53,7 @@ main(int argc, const char *argv[]) {
   bellerophontool.registerAprxContext(getFlapAprxContext());
   bellerophontool.registerAprxContext(getLoopAprxContext());
   bellerophontool.registerAprxContext(getVpaAprxContext());
+  bellerophontool.registerAprxContext(getVpanAprxContext());
   // run tool 
   bellerophontool.run(argc,argv);
   return 0;
