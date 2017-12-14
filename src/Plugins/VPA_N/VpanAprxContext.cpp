@@ -103,17 +103,17 @@ bool vpanContext::VpanAprxContext::readReport(::std::string reportPath)
 
     vpanMacroType retTy;
     if (OpRetTy == "LONG DOUBLE") {
-      retTy = ::vpa::VPAPrecision::LONG_DOUBLE;
+      retTy = ::vpan::LONG_DOUBLE;
     } else if (pRetTy == "DOUBLE"){
-      retTy = ::vpa::VPAPrecision::DOUBLE;
+      retTy = ::vpan::DOUBLE;
     } else {
-      retTy = ::vpa::VPAPrecision::FLOAT;
+      retTy = ::vpan::FLOAT;
     }
     
-    vpa::vpaOperation Ty = vpa::vpaOperation::ADD;
-    if(OpTy == "SUB")       Ty = vpa::vpaOperation::SUB;
-    else if(OpTy == "MUL")  Ty = vpa::vpaOperation::MUL;
-    else if(OpTy == "DIV")  Ty = vpa::vpaOperation::DIV;
+    vpan::vpaOperation Ty = vpan::vpaOperation::ADD;
+    if(OpTy == "SUB")       Ty = vpan::vpaOperation::SUB;
+    else if(OpTy == "MUL")  Ty = vpan::vpaOperation::MUL;
+    else if(OpTy == "DIV")  Ty = vpan::vpaOperation::DIV;
     // Build an instance of VpanAprxTechnique 
     VpanAprxTechnique  c(this->LocStartId,OpId,retTy,Ty);
     this->LocStartId++;
