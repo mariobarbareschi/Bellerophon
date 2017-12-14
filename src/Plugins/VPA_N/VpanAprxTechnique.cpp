@@ -27,8 +27,8 @@
 ******************************************************************************/
 
 // Tools Headers
-#include "Plugins/VPA_Native/VpanAprxTechnique.h"
-#include "Plugins/VPA_Native/vpa_n.h"
+#include "Plugins/VPA_N/VpanAprxTechnique.h"
+#include "Plugins/VPA_N/vpa_n.h"
 #include "lib/csv.h"
 #include "Log.h"
 // LLVM Headers
