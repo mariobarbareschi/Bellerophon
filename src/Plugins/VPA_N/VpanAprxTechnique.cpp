@@ -54,7 +54,8 @@ static std::string vpanGradeToString(const vpa_n::VPAPrecision prec){
 	return std::string("long double");
  else if(prec == vpa_n::DOUBLE)
 	return std::string("double");
- else std::string("float");
+ else 
+	return std::string("float");
 }
 
 static std::string vpanApproxGradeToString(const unsigned short i){
@@ -89,7 +90,6 @@ void VpanAprxTechnique::applyApproximation(
   log::BellerophonLogger::verbose(
     this->OpId+" @ Address: " + stream.str() +
     " - Prec(" + vpanGradeToString(*p) + ")\n");
-   *p = (::vpa_n::VPAPrecision)::vpa_n::VPAPrecision::LONG_DOUBLE;
     
     log::BellerophonLogger::verbose( "Actual grade: " + vpanApproxGradeToString(actualGrade) +
     "; Required grade: "+ vpanApproxGradeToString(actualGrade+g) +"\n");
