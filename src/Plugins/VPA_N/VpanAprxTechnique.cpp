@@ -49,7 +49,7 @@ using namespace bellerophon;
   return names;
 }
 
-static std::string vpanGradeToString(const vpa::VpaPrecision prec){
+static std::string vpanGradeToString(const vpa_n::VpaPrecision prec){
  if(prec == LONG_DOUBLE)
 	return std::string("long double");
  else if(prec == DOUBLE)
@@ -78,7 +78,7 @@ void VpanAprxTechnique::applyApproximation(
 
   assert( g < 3); // Precondition
 
-  ::vpa_n::VpaPrecision *p = (::vpa::VpaPrecision *)addrs.at(0);
+  ::vpa_n::VpaPrecision *p = (::vpa_n::VpaPrecision *)addrs.at(0);
 
   std::stringstream stream;
   stream << "0x" 
@@ -96,9 +96,9 @@ void VpanAprxTechnique::applyApproximation(
     if(actualGrade == 0)
         *p = ::vpa_n::LONG_DOUBLE;
     else if(actualGrade == 1)
-        *p = ::vpa::DOUBLE;
+        *p = ::vpa_n::DOUBLE;
     else
-        *p = ::vpa::FLOAT;
+        *p = ::vpa_n::FLOAT;
 
   log::BellerophonLogger::verbose(
     "After approximation: " + vpanGradeToString(*p) +
