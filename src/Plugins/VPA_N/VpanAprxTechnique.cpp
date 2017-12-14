@@ -23,7 +23,7 @@
 * @file   VpaAprxTechnique.cpp
 * @author Mario Barbareschi
 * @date   14 dec 2017
-* @brief  Implementation for the vpan aprx technique
+* @brief  Implementation for the vpan native aprx technique
 ******************************************************************************/
 
 // Tools Headers

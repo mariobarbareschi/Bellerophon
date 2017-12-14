@@ -32,14 +32,14 @@
 // C/C++ Headers
 #include <cassert>
 
-namespace vpa
+namespace vpan
 {
 enum vpanOperation { ADD, SUB, MUL, DIV };
 
 enum vpanMacroType { FLOAT, DOUBLE, LONG_DOUBLE };
 }
 
-using namespace vpa;
+using namespace vpan;
 
 class VpanAprxTechnique : public ::bellerophon::core::AprxTechnique 
 {

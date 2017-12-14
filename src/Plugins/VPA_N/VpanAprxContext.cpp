@@ -23,7 +23,7 @@
  * @file   VpanAprxTechnique.cpp
  * @author Mario Barbareschi
  * @date   14 dec 2017
- * @brief  Implementation for the vpa aprx context
+ * @brief  Implementation for the vpa native aprx context
  ******************************************************************************/
 // Tools Headers
 #include "Core/AprxContext.h"
@@ -101,9 +101,13 @@ bool vpanContext::VpanAprxContext::readReport(::std::string reportPath)
       "Operand 1: " + Op1 + ", Operand 2: " + Op2 +
       ", Return Operand: " + OpRet + ".\n\n");
 
-    vpaMacroType retTy = ::vpa::vpaMacroType::FLOAT;
-    if (OpRetTy == "DOUBLE") {
-      retTy = ::vpa::vpaMacroType::DOUBLE;
+    vpanMacroType retTy;
+    if (OpRetTy == "LONG DOUBLE") {
+      retTy = ::vpa::VPAPrecision::LONG_DOUBLE;
+    } else if (pRetTy == "DOUBLE"){
+      retTy = ::vpa::VPAPrecision::DOUBLE;
+    } else {
+      retTy = ::vpa::VPAPrecision::FLOAT;
     }
     
     vpa::vpaOperation Ty = vpa::vpaOperation::ADD;
