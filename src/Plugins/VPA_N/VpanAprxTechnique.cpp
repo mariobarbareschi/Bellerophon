@@ -132,4 +132,4 @@ void VpanAprxTechnique::applyApproximation(
 }
 
 
-void VpaAprxTechnique::dump(::llvm::raw_ostream &out) const {}
+void VpanAprxTechnique::dump(::llvm::raw_ostream &out) const {}

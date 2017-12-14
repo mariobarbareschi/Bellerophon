@@ -110,10 +110,10 @@ bool vpanContext::VpanAprxContext::readReport(::std::string reportPath)
       retTy = ::vpan::FLOAT;
     }
     
-    vpan::vpaOperation Ty = vpan::vpaOperation::ADD;
-    if(OpTy == "SUB")       Ty = vpan::vpaOperation::SUB;
-    else if(OpTy == "MUL")  Ty = vpan::vpaOperation::MUL;
-    else if(OpTy == "DIV")  Ty = vpan::vpaOperation::DIV;
+    vpan::vpanOperation Ty = vpan::vpanOperation::ADD;
+    if(OpTy == "SUB")       Ty = vpan::vpanOperation::SUB;
+    else if(OpTy == "MUL")  Ty = vpan::vpanOperation::MUL;
+    else if(OpTy == "DIV")  Ty = vpan::vpanOperation::DIV;
     // Build an instance of VpanAprxTechnique 
     VpanAprxTechnique  c(this->LocStartId,OpId,retTy,Ty);
     this->LocStartId++;
