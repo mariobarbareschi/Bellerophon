@@ -28,7 +28,7 @@
 #ifndef INCLUDE_BELLERO_VPANAPRXCONTEXT_H_
 #define INCLUDE_BELLERO_VPANAPRXCONTEXT_H_
 
-#include "Plugins/VPA_N/vpa.h"
+#include "Plugins/VPA_N/vpa_n.h"
 #include "Core/AprxContext.h"
 
 
