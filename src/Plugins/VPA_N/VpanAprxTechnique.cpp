@@ -105,7 +105,7 @@ void VpanAprxTechnique::applyApproximation(
     "\n");
 }
 
-::std::vector<::std::string> VpaAprxTechnique::applyApproximation(
+::std::vector<::std::string> VpanAprxTechnique::applyApproximation(
       ::bellerophon::core::AprxGrade g) const
 {
   ::std::vector<::std::string> args;
