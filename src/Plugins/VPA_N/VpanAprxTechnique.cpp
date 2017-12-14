@@ -95,11 +95,11 @@ void VpanAprxTechnique::applyApproximation(
     
     actualGrade+=g;
     if(0 == actualGrade)
-        *p = 2;
+        *p = ::vpa_n::VPAPrecision::LONG_DOUBLE;
     else if(1 == actualGrade)
-        *p = 1;
+        *p = ::vpa_n::VPAPrecision::DOUBLE;
     else
-        *p = 0;
+        *p = ::vpa_n::VPAPrecision::FLOAT;
 
   log::BellerophonLogger::verbose("After approximation: " + vpanGradeToString(*p) + "\n");
 }
