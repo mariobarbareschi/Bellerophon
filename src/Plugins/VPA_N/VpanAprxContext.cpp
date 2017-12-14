@@ -104,7 +104,7 @@ bool vpanContext::VpanAprxContext::readReport(::std::string reportPath)
     vpanMacroType retTy;
     if (OpRetTy == "LONG DOUBLE") {
       retTy = ::vpan::LONG_DOUBLE;
-    } else if (pRetTy == "DOUBLE"){
+    } else if (OpRetTy == "DOUBLE"){
       retTy = ::vpan::DOUBLE;
     } else {
       retTy = ::vpan::FLOAT;
