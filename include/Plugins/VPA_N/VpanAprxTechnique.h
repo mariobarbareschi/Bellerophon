@@ -108,8 +108,8 @@ public:
 
 private:
   ::std::string OpId;        ///< Identifier of the operation
-  vpa::vpanMacroType OpRetTy;  ///< Which return type
-  vpa::vpanOperation OpTy;        ///< Which operation
+  vpan::vpanMacroType OpRetTy;  ///< Which return type
+  vpan::vpanOperation OpTy;        ///< Which operation
 };
 
 #endif /* INCLUDE_IIDEAA_VPANAPRXTECHNIQUE_H_ */
