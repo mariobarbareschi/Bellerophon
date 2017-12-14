@@ -47,7 +47,7 @@ public:
   // Default ctor
   VpanAprxTechnique (unsigned id,
                      const ::std::string opId,
-                     vpan::vpnaMacroType rtTy = vpan::vpanMacroType::FLOAT,
+                     vpan::vpanMacroType rtTy = vpan::vpanMacroType::FLOAT,
                      vpan::vpanOperation ty = vpan::vpanOperation::ADD )
     : AprxTechnique (id),OpId(opId),OpRetTy(rtTy),OpTy(ty) {
   }
