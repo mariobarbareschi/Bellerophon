@@ -28,8 +28,8 @@
 // Tools Headers
 #include "Core/AprxContext.h"
 #include "Core/AprxTechnique.h"
-#include "Plugins/VPA_N/VpanAprxTechnique.h"
-#include "Plugins/VPA_N/VpanAprxContext.h"
+#include "Plugins/VPA_Native/VpanAprxTechnique.h"
+#include "Plugins/VPA_Native/VpanAprxContext.h"
 #include "Log.h"
 #include "lib/csv.h"
 // LLVM Headers
