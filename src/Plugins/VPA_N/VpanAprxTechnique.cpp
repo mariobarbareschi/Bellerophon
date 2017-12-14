@@ -49,7 +49,7 @@ using namespace bellerophon;
   return names;
 }
 
-static std::string vpanGradeToString(const vpa_n::VpaPrecision prec){
+static std::string vpanGradeToString(const vpa_n::VPAPrecision prec){
  if(prec == LONG_DOUBLE)
 	return std::string("long double");
  else if(prec == DOUBLE)

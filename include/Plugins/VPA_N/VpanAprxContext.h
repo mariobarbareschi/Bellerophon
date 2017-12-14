@@ -35,8 +35,6 @@
 namespace bellerophon{
 namespace vpanContext{
 
-
-
 class VpanAprxContext : public bellerophon::core::AprxContext {
 public:
   VpanAprxContext() { }
