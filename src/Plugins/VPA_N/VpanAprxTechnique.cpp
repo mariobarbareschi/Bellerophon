@@ -94,16 +94,14 @@ void VpanAprxTechnique::applyApproximation(
     "; Required grade: "+ vpanApproxGradeToString(actualGrade+g) +"\n");
     
     actualGrade+=g;
-    if(actualGrade == 0)
-        *p = ::vpa_n::LONG_DOUBLE;
-    else if(actualGrade == 1)
-        *p = ::vpa_n::DOUBLE;
+    if(0 == actualGrade)
+        *p = 2;
+    else if(1 == actualGrade)
+        *p = 1;
     else
-        *p = ::vpa_n::FLOAT;
+        *p = 0;
 
-  log::BellerophonLogger::verbose(
-    "After approximation: " + vpanGradeToString(*p) +
-    "\n");
+  log::BellerophonLogger::verbose("After approximation: " + vpanGradeToString(*p) + "\n");
 }
 
 ::std::vector<::std::string> VpanAprxTechnique::applyApproximation(
