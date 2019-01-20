@@ -1,5 +1,7 @@
 # Bellerophon 
 [![Build Status](https://travis-ci.org/andreaaletto/Bellerophon.svg?branch=master)](https://travis-ci.org/andreaaletto/Bellerophon) 
+
+
 An evolute search engine for ***Approximate Computing***.
 
 
@@ -67,7 +69,7 @@ At the end of the process you will find Bellerophon in ``` /usr/bin```. Try run:
 $ bellerophon -version
 ``` 
 
-### How To Use
+## How To Use
 Running bellerophon without input parameters, it will print the following short helper:
 ``` 
     OVERVIEW: Launch a design space exploration over a C/C++ project compiled just-in-time
