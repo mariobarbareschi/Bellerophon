@@ -37,5 +37,5 @@ install:
 script:
 - llvm-config --version
 - clang --version
-- clang-chimera -version
+- bellerophon -version
 
