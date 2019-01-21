@@ -1,3 +1,7 @@
+branches:
+	only:
+	- master
+	- travis_ci
 sudo: required
 language: C
 before_install:
@@ -32,7 +36,11 @@ install:
 - LLVM_LIBS="$(llvm-config --components)" && sed -i "s/insert-llvm-libs-here/${LLVM_LIBS}/g" ../CMakeLists.txt
 - sed -i "s/all-targets //g" ../CMakeLists.txt
 - sudo sed -i 's/list(APPEND link_components "jit")/list(APPEND link_components "mcjit")/g' /usr/lib/cmake/llvm/LLVM-Config.cmake
-- cmake .. -DCMAKE_MODULE_PATH=../ParadisEO-2.0/cmake/module/ -G Ninja
+- ls ..
+- ls
+- ls ../ParadisEO-2.0
+- ls ../ParadisEO-2.0/cmake/module
+- cmake .. -DCMAKE_MODULE_PATH=ParadisEO-2.0/cmake/module/ -G Ninja
 - ninja
 - sudo ninja install
 script:
