@@ -48,10 +48,10 @@ $ sudo ninja install
 -------------
 First of all you need to download Bellerophon source and prepare it to the building phase:
 ```
-cd ~
-git clone https://github.com/andreaaletto/Bellerophon.git
-cd Bellerophon
-mkdir build && cd build
+$ cd ~
+$ git clone https://github.com/andreaaletto/Bellerophon.git
+$ cd Bellerophon
+$ mkdir build && cd build
 ```
 In order to build Bellerohon it is necessary to adjust the ```CMakeLists.txt``` file, substituting the placeholder ```insert-llvm-libs-here``` with the currently installed LLVM components:
 ```
