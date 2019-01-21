@@ -26,6 +26,7 @@ install:
 - mkdir build && cd build
 - sed -i "s/CMAKE_MINIMUM_REQUIRED(VERSION 2.6)/CMAKE_MINIMUM_REQUIRED(VERSION 3.3)/g" ../eo/CMakeLists.txt
 - cmake .. -G Ninja
+- ninja && sudo ninja install
 - cd ../..
 - mkdir build && cd build
 - LLVM_LIBS="$(llvm-config --components)" && sed -i "s/insert-llvm-libs-here/${LLVM_LIBS}/g" ../CMakeLists.txt
