@@ -111,6 +111,9 @@ Bellerophon takes other inputs, such as the particular approximate computing tec
 The flag ```-P``` provides a path to a ``` .param```  file that specifies Genetic Algorithm parameters.
 Finally, it is mandatory to specify a __tau__ value, which is considered as the maximum error that each approximate configuration causes.
 
+## Quick Start
+If you don't want to build LLVM/Clang and Bellerophon from scratch, a ready-to-use solution is provided through a [Docker](https://www.docker.com/) Container. Please refer to [IIDEAA Docker](https://github.com/andreaaletto/iideaa-docker) repository for further details.
+
 #### LICENSE
 --------
 
