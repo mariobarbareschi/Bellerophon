@@ -10,8 +10,8 @@ before_install:
 
 # Install dependencies
 - sudo apt-get -qq update
-- sudo apt-get -qq upgrade -y
 - sudo apt-get install -y cmake ninja-build build-essential zlib1g-dev libffi-dev libedit-dev libncurses5-dev libboost-dev wget tar doxygen
+- sudo apt-get -qq install --only-upgrade cmake
 
 # Clone LLVM/Clang repos
 - cd ..
