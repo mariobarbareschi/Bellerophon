@@ -55,10 +55,12 @@ include_directories(${PARADISEO_INCLUDE_DIR})
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
-# Find the libraries that correspond to the LLVM/Clang components
-# that we wish to use
-llvm_map_components_to_libnames(llvm_libs insert-llvm-libs-here)
+SET(LLVM_COMPS "" CACHE LIST "Insert llvm components here") 
+message(STATUS "llvm_components:  ${LLVM_COMPS}")
 
+# Find the libraries that correspond to the LLVM/Clang components
+## Mapping components to libraries names
+llvm_map_components_to_libnames(llvm_libs ${LLVM_COMPS})
 
 
 list(APPEND clang_libs
