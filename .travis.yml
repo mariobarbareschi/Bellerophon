@@ -49,8 +49,8 @@ before_install:
 install:
 # Build and install Bellerophon
 - cd $TRAVIS_BUILD_DIR
-- mkdir build && cd build
-- LLVM_LIBS="$(llvm-config --components)" && LLVM_LIBS=$(echo $LLVM_LIBS | sed "s/ /;/g") && LLVM_LIBS=$(echo $LLVM_LIBS | sed "s/all-targets;//g") && cmake .. -G Ninja -DLLVM_COMPS=$(echo $LLVM_LIBS) -DCMAKE_MODULE_PATH=$TRAVIS_BUILD_DIR/../ParadisEO-2.0/cmake/module/
+- ./run_cmake $TRAVIS_BUILD_DIR/../ParadisEO-2.0/cmake/module/
+- cd build
 - ninja
 - sudo ninja install
 
