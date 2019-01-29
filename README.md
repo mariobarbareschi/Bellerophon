@@ -1,5 +1,5 @@
 # Bellerophon 
-[![Build Status](https://travis-ci.org/andreaaletto/Bellerophon.svg?branch=master)](https://travis-ci.org/andreaaletto/Bellerophon) 
+[![Build Status](https://travis-ci.org/andreaaletto/Bellerophon.svg?branch=master)](https://travis-ci.org/andreaaletto/Bellerophon) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
 
 
 An evolute search engine for ***Approximate Computing***.
@@ -10,7 +10,7 @@ An evolute search engine for ***Approximate Computing***.
 Bellerophon is a genetic optimization tool for approximate computing.
 It is meant for using in collaboration with [clang-Chimera](https://github.com/ntonjeta/clang-chimera). Indeed, Clang-Chimera provides the code mutation feature, while Bellerophon uses Genetic Algorithm for explore approximate variants and finds the pareto-frontier solutions. Bellerophon includes the [ParadisEO](http://paradiseo.gforge.inria.fr/) metaheuristic framework.
 
-**Bellerophon** is part of the IIDEAA project. For further information, please refer to [IIDEA website](http://wpage.unina.it/mario.barbareschi/iideaa/handson/).
+**Bellerophon** is part of the IIDEAA project. For further information, please refer to [IIDEAA website](http://wpage.unina.it/mario.barbareschi/old/iideaa/handson/).
 
 
 ## Build Bellerophon from source
