@@ -51,20 +51,18 @@ First of all you need to download Bellerophon source and prepare it to the build
 $ cd ~
 $ git clone https://github.com/andreaaletto/Bellerophon.git
 $ cd Bellerophon
-$ mkdir build && cd build
 ```
-In order to build Bellerohon it is necessary to adjust the ```CMakeLists.txt``` file, substituting the placeholder ```insert-llvm-libs-here``` with the currently installed LLVM components:
+In order to build _Bellerohon_ it is necessary to adjust the ```CMakeLists.txt``` file, by adding the currently installed LLVM components and linking ParadisEO library. This can be automated with the script ```run_cmake``` (assuming that ParadisEO source is located in ```~/ParadisEO-2.0```):
 ```
-$ LLVM_LIBS="$(llvm-config --components)" && sed -i "s/insert-llvm-libs-here/${LLVM_LIBS}/g" ~/Bellerophon/CMakeLists.txt
-$ sed -i "s/all-targets //g" ~/Bellerophon/CMakeLists.txt
+$ chmod +x run_cmake
+$ ./run_cmake
 ```
-Now you can run CMake, linking Bellerophon configuration to ParadisEO cmake script. Assuming ParadisEO source to be located in ```~/ParadisEO-2.0```, run the following commands:
+Now you can build and install _Bellerophon_ with ninja-build:
 ```
-$ cmake .. -DCMAKE_MODULE_PATH=~/ParadisEO-2.0/cmake/module/ -G Ninja
 $ ninja
 $ sudo ninja install
 ```
-At the end of the process you will find Bellerophon in ``` /usr/bin```. Try run:
+At the end of the process you will find Bellerophon in ``` /usr/local/bin```. Try run:
 ``` 
 $ bellerophon -version
 ``` 
