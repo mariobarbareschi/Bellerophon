@@ -32,24 +32,20 @@
 // C/C++ Headers
 #include <cassert>
 
-namespace flap
+namespace inax1
 {
-enum OperationType { ADD, SUB, MUL, DIV };
 
-enum OperationRetType { FLOAT, DOUBLE };
 }
 
-using namespace flap;
+using namespace inax1;
 
 class InAx1AprxTechnique : public ::bellerophon::core::AprxTechnique 
 {
 public:
   // Default ctor
   InAx1AprxTechnique (unsigned id,
-                     const ::std::string opId,
-                     OperationRetType rtTy = FLOAT,
-                     OperationType ty = ADD )
-    : AprxTechnique (id),OpId(opId),OpRetTy(rtTy),OpTy(ty) {
+                     const ::std::string NabId)
+    : AprxTechnique (id),NabId(NabId) {
   }
 
   //*-------------------------------------------------------------------*
@@ -58,8 +54,8 @@ public:
 
   /// \brief Retrive Id
   /// \return the string ID
-  const ::std::string& getOpId() const {
-      return OpId;
+  const ::std::string& getNabId() const {
+      return NabId;
   }
 
   //*-------------------------------------------------------------------*
@@ -68,8 +64,8 @@ public:
 
   /// \brief Set the Id
   /// \param The Id to set
-  void setOpId ( const ::std::string& opId ) {
-      this->OpId = opId;
+  void setNabId ( const ::std::string& NabId ) {
+      this->NabId = NabId;
   }
   /// \brief Set the OperandLHS
   /// \param The operand to set
@@ -107,9 +103,7 @@ public:
   ::std::string OperandRHS;
 
 private:
-  ::std::string OpId;        ///< Identifier of the operation
-  OperationRetType OpRetTy;  ///< Which return type
-  OperationType OpTy;        ///< Which operation
+  ::std::string NabId;        ///< Identifier of the operation
 };
 
 #endif /* INCLUDE_IIDEAA_InAx1APRXTECHNIQUE_H_ */

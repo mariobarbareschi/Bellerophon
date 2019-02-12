@@ -28,7 +28,7 @@
 
 // Tools Headers
 #include "Plugins/InAx1/InAx1AprxTechnique.h"
-#include "Plugins/FLAP/fap.h" //FIXME: rimouvere
+// #include "Plugins/FLAP/fap.h" //FIXME: rimouvere
 #include "lib/csv.h"
 #include "Log.h"
 // LLVM Headers
@@ -45,7 +45,7 @@ using namespace bellerophon;
 ::std::vector<::std::string> InAx1AprxTechnique::getGlobalValueNames() const
 {
   ::std::vector<::std::string> names;
-  names.push_back(this->OpId);
+  names.push_back(this->NabId);
   return names;
 }
 
@@ -53,28 +53,21 @@ void InAx1AprxTechnique::applyApproximation(
     ::core::AprxGrade g, ::std::vector<uint64_t> addrs) const
 {
   // Take the maximum
-  unsigned short expPrec = 11;
-  unsigned short maxMantPrec = 52;
-  if (this->OpRetTy == FLOAT) {
-    expPrec = 8;
-    maxMantPrec = 23;
-  }
+  unsigned short maxNab = 32;
 
-  assert(g <= maxMantPrec); // Precondition
+  assert(g <= maxNab); // Precondition
 
-  ::fap::FloatPrecTy *p = (::fap::FloatPrecTy *)addrs.at(0);
+  // ::fap::FloatPrecTy *p = (::fap::FloatPrecTy *)addrs.at(0);
+  int *p = (int *)addrs.at(0);
 
   log::BellerophonLogger::verbose(
     "Address: " + ::std::to_string(addrs.at(0)) +
-    " - Prec("  +::std::to_string(p->exp_size) + ":" + ::std::to_string(p->mant_size) +
-    ")\n");
+    " - NAB: ("  +::std::to_string(*p) + ")\n");
 
-  *p = ::fap::FloatPrecTy(expPrec, maxMantPrec - g);
+  *p = (g);
 
   log::BellerophonLogger::verbose(
-    "After approximation: " + ::std::to_string(p->exp_size) +
-    ":" + ::std::to_string(p->mant_size) +
-    "\n");
+    "After approximation: NAB (" + ::std::to_string(*p) + ")\n");
 }
 
 ::std::vector<::std::string> InAx1AprxTechnique::applyApproximation(
@@ -83,22 +76,16 @@ void InAx1AprxTechnique::applyApproximation(
   ::std::vector<::std::string> args;
 
   // Take the maximum
-  unsigned short expPrec = 11;
-  unsigned short maxMantPrec = 52;
-  if (this->OpRetTy == FLOAT) {
-    expPrec = 8;
-    maxMantPrec = 23;
-  }
+  unsigned short maxNab = 32;
 
-  assert(g <= maxMantPrec); // Precondition
+  assert(g <= maxNab); // Precondition
 
-  ::std::string prec = "{" + ::std::to_string(expPrec) + "," +
-                       ::std::to_string(maxMantPrec - g) + "}";
+  ::std::string prec = "{" + ::std::to_string(g) + "}";
 
-  args.push_back("-D" + this->OpId + "=" + prec + "");
+  args.push_back("-D" + this->NabId + "=" + prec + "");
   log::BellerophonLogger::verbose(
     "AprxLoxContext[" + ::std::to_string(this->Id) + "] - \n" +
-    "Adding argument: -D" + this->OpId + "=" + prec + "\n");
+    "Adding argument: -D" + this->NabId + "=" + prec + "\n");
 
   return args;
 }

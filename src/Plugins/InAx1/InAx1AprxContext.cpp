@@ -42,17 +42,12 @@
 #include <utility>
 
 using namespace bellerophon;
-using namespace flap;
+using namespace inax1;
 
 
 ::bellerophon::core::AprxGrade inax1Context::InAx1AprxContext::getMaxApplicableGrade() const
 {
-  //if (this->OpRetTy == FLOAT) {
-  return 23;
-  //} else if (this->OpRetTy == DOUBLE) {
-    //return 52;
-  //}
-  //return 0;
+  return 32; //max bits that can be approximated
 }
 ::std::shared_ptr<core::AprxContext> getInAx1AprxContext()
 {
@@ -89,34 +84,21 @@ bool inax1Context::InAx1AprxContext::readReport(::std::string reportPath)
     return false;
 
   }
-  constexpr char cols = 7;
-  io::CSVReader<cols, io::trim_chars<' '>, io::double_quote_escape<',', '\"'>>
-      flapReport(reportPath);
-  ::std::string OpId;
+  constexpr char cols = 5;
+  io::CSVReader<cols, io::trim_chars<' '>, io::double_quote_escape<',', '\"'>> inax1_report(reportPath);
+  ::std::string nabId;
   int line;
-  ::std::string OpTy, OpRetTy;
   ::std::string Op1, Op2, OpRet; // Operands
 
-  log::BellerophonLogger::verbose("Reading a FLAP report:\n");
-  while (flapReport.read_row(OpId, line, OpRetTy, OpTy, Op1, Op2, OpRet)) {
+  log::BellerophonLogger::verbose("Reading a InAx1 report:\n");
+  while (inax1_report.read_row(nabId, line, Op1, Op2, OpRet)) {
     log::BellerophonLogger::verbose(
-      "OperationId: " + OpId +
-      ", OpReType: "  + OpRetTy +
-      ", OperationType: "+ OpTy + ".\n" +
-      "Operand 1: " + Op1 + ", Operand 2: " + Op2 +
+      "NabId: " + nabId +
+      "\nOperand 1: " + Op1 + ", Operand 2: " + Op2 +
       ", Return Operand: " + OpRet + ".\n\n");
 
-    OperationRetType retTy = ::flap::OperationRetType::FLOAT;
-    if (OpRetTy == "DOUBLE") {
-      retTy = ::flap::OperationRetType::DOUBLE;
-    }
-    
-    OperationType Ty = ADD;
-    if(OpTy == "SUB")       Ty = SUB;
-    else if(OpTy == "MUL")  Ty = MUL;
-    else if(OpTy == "DIV")  Ty = DIV;
     // Build an instance of InAx1AprxTechnique 
-    InAx1AprxTechnique  c(this->LocStartId,OpId,retTy,Ty);
+    InAx1AprxTechnique  c(this->LocStartId,nabId);
     this->LocStartId++;
     c.setLHS(Op1);
     c.setRHS(Op2);
