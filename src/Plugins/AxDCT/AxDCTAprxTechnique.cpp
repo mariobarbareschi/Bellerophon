@@ -20,15 +20,14 @@
 //
 
 /******************************************************************************
-* @file   InAx1AprxTechnique.cpp
+* @file   AxDCTAprxTechnique.cpp
 * @author Andrea Aletto
-* @date   30 gen 2019
-* @brief  Implementation for the InAx1 aprx technique
+* @date   18 feb 2019
+* @brief  Implementation for the AxDCT aprx technique
 ******************************************************************************/
 
 // Tools Headers
-#include "Plugins/InAx1/InAx1AprxTechnique.h"
-// #include "Plugins/FLAP/fap.h" //FIXME: rimouvere
+#include "Plugins/AxDCT/AxDCTAprxTechnique.h"
 #include "lib/csv.h"
 #include "Log.h"
 // LLVM Headers
@@ -42,14 +41,14 @@
 
 using namespace bellerophon;
 
-::std::vector<::std::string> InAx1AprxTechnique::getGlobalValueNames() const
+::std::vector<::std::string> AxDCTAprxTechnique::getGlobalValueNames() const
 {
   ::std::vector<::std::string> names;
   names.push_back(this->NabId);
   return names;
 }
 
-void InAx1AprxTechnique::applyApproximation(
+void AxDCTAprxTechnique::applyApproximation(
     ::core::AprxGrade g, ::std::vector<uint64_t> addrs) const
 {
   // Take the maximum
@@ -70,7 +69,7 @@ void InAx1AprxTechnique::applyApproximation(
     "After approximation: NAB (" + ::std::to_string(*p) + ")\n");
 }
 
-::std::vector<::std::string> InAx1AprxTechnique::applyApproximation(
+::std::vector<::std::string> AxDCTAprxTechnique::applyApproximation(
       ::bellerophon::core::AprxGrade g) const
 {
   ::std::vector<::std::string> args;
@@ -91,4 +90,4 @@ void InAx1AprxTechnique::applyApproximation(
 }
 
 
-void InAx1AprxTechnique::dump(::llvm::raw_ostream &out) const {}
+void AxDCTAprxTechnique::dump(::llvm::raw_ostream &out) const {}

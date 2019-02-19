@@ -1,12 +1,12 @@
-# CMakeLists for InAx1 AprxTechnique
+# CMakeLists for AxDCT AprxTechnique
 # Change the target name
-set (target_name "InAx1Aprx")
+set (target_name "AxDCT")
 set (target_lib_name ${target_name})
 
 # Create a library target. 
 add_library(${target_name}
-            InAx1AprxContext.cpp
-            InAx1AprxTechnique.cpp
+            AxDCTAprxContext.cpp
+            AxDCTAprxTechnique.cpp
             )
 # Add the include directory
 target_include_directories(${target_name}

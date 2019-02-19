@@ -19,31 +19,26 @@
  */
 
 //===----------------------------------------------------------------------===//
-/// \file InAx1AprxTechnique.h
+/// \file AxDCTAprxTechnique.h
 /// \author Andrea Aletto
-/// \date  30 gen 2019
+/// \date  18 feb 2019
 /// \brief This file makes visible Approximate Context
 //===----------------------------------------------------------------------===//
-#ifndef INCLUDE_BELLEROPHON_INAX1APRXTECHNIQUE_H_
-#define INCLUDE_BELLEROPHON_INAX1APRXTECHNIQUE_H_
+#ifndef INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_
+#define INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_
 
 // Tools Headers
 #include "Core/AprxTechnique.h"
 // C/C++ Headers
 #include <cassert>
 
-namespace inax1
-{
 
-}
 
-using namespace inax1;
-
-class InAx1AprxTechnique : public ::bellerophon::core::AprxTechnique 
+class AxDCTAprxTechnique : public ::bellerophon::core::AprxTechnique 
 {
 public:
   // Default ctor
-  InAx1AprxTechnique (unsigned id,
+  AxDCTAprxTechnique (unsigned id,
                      const ::std::string NabId)
     : AprxTechnique (id),NabId(NabId) {
   }
@@ -106,4 +101,4 @@ private:
   ::std::string NabId;        ///< Identifier of the operation
 };
 
-#endif /* INCLUDE_IIDEAA_InAx1APRXTECHNIQUE_H_ */
+#endif /* INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_ */

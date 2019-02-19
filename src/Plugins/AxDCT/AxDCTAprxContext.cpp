@@ -20,16 +20,16 @@
 //
 
 /******************************************************************************
- * @file   InAx1AprxTechnique.cpp
+ * @file   AxDCTAprxContext.cpp
  * @author Andrea Aletto
- * @date   30 gen 2019
- * @brief  Implementation for the InAx1 aprx context
+ * @date   19 feb 2019
+ * @brief  Implementation for the AxDCT aprx context
  ******************************************************************************/
 // Tools Headers
 #include "Core/AprxContext.h"
 #include "Core/AprxTechnique.h"
-#include "Plugins/InAx1/InAx1AprxTechnique.h"
-#include "Plugins/InAx1/InAx1AprxContext.h"
+#include "Plugins/AxDCT/AxDCTAprxTechnique.h"
+#include "Plugins/AxDCT/AxDCTAprxContext.h"
 #include "Log.h"
 #include "lib/csv.h"
 // LLVM Headers
@@ -42,40 +42,39 @@
 #include <utility>
 
 using namespace bellerophon;
-using namespace inax1;
 
 
-::bellerophon::core::AprxGrade inax1Context::InAx1AprxContext::getMaxApplicableGrade() const
+::bellerophon::core::AprxGrade axdctcontext::AxDCTAprxContext::getMaxApplicableGrade() const
 {
   return 32; //max bits that can be approximated
 }
-::std::shared_ptr<core::AprxContext> getInAx1AprxContext()
+::std::shared_ptr<core::AprxContext> getAxDCTAprxContext()
 {
-  ::std::shared_ptr<inax1Context::InAx1AprxContext> r
+  ::std::shared_ptr<axdctcontext::AxDCTAprxContext> r
     (
-      new inax1Context::InAx1AprxContext(
-        "InAx1Aprx",                     // Id
-        "InAx1 approximation plugin")    // Description
+      new axdctcontext::AxDCTAprxContext(
+        "AxDCTAprx",                     // Id
+        "AxDCT approximation plugin")    // Description
     );
   return r;
 }
 
-void inax1Context::InAx1AprxContext::setLocation (::std::vector<core::AprxLocation> tcnq)
+void axdctcontext::AxDCTAprxContext::setLocation (::std::vector<core::AprxLocation> tcnq)
 {
   this->locations = tcnq;
 }
 
-core::AprxContext* inax1Context::InAx1AprxContext::operator= (core::AprxContext &rhs)
+core::AprxContext* axdctcontext::AxDCTAprxContext::operator= (core::AprxContext &rhs)
 {
-  inax1Context::InAx1AprxContext *r = 
-      new inax1Context::InAx1AprxContext(rhs.getId(),rhs.getDesc());
+  axdctcontext::AxDCTAprxContext *r = 
+      new axdctcontext::AxDCTAprxContext(rhs.getId(),rhs.getDesc());
 
   r->setLocation(rhs.getLocations());
   
   return r;  
 }
 
-bool inax1Context::InAx1AprxContext::readReport(::std::string reportPath)
+bool axdctcontext::AxDCTAprxContext::readReport(::std::string reportPath)
 {
 
   ::std::vector<core::AprxLocation> v;
@@ -85,25 +84,25 @@ bool inax1Context::InAx1AprxContext::readReport(::std::string reportPath)
 
   }
   constexpr char cols = 5;
-  io::CSVReader<cols, io::trim_chars<' '>, io::double_quote_escape<',', '\"'>> inax1_report(reportPath);
+  io::CSVReader<cols, io::trim_chars<' '>, io::double_quote_escape<',', '\"'>> axdct_report(reportPath);
   ::std::string nabId;
   int line;
   ::std::string Op1, Op2, OpRet; // Operands
 
-  log::BellerophonLogger::verbose("Reading a InAx1 report:\n");
-  while (inax1_report.read_row(nabId, line, Op1, Op2, OpRet)) {
+  log::BellerophonLogger::verbose("Reading a AxDCT report:\n");
+  while (axdct_report.read_row(nabId, line, Op1, Op2, OpRet)) {
     log::BellerophonLogger::verbose(
       "NabId: " + nabId +
       "\nOperand 1: " + Op1 + ", Operand 2: " + Op2 +
       ", Return Operand: " + OpRet + ".\n\n");
 
-    // Build an instance of InAx1AprxTechnique 
-    InAx1AprxTechnique  c(this->LocStartId,nabId);
+    // Build an instance of AxDCTAprxTechnique 
+    AxDCTAprxTechnique  c(this->LocStartId,nabId);
     this->LocStartId++;
     c.setLHS(Op1);
     c.setRHS(Op2);
     // Build an instance of AprxLocation
-    core::AprxLocation l(::std::make_shared<InAx1AprxTechnique>(c));
+    core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
     // Push back in AprxLocation Vector
     v.push_back(l);
   }
