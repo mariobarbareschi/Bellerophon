@@ -32,6 +32,11 @@
 // C/C++ Headers
 #include <cassert>
 
+enum AxDCTAprxType {
+  AxDCT_ADD,
+  AxDCT_LOOPBREAK,
+  AxDCT_UNDEFINED
+};
 
 
 class AxDCTAprxTechnique : public ::bellerophon::core::AprxTechnique 
@@ -39,8 +44,9 @@ class AxDCTAprxTechnique : public ::bellerophon::core::AprxTechnique
 public:
   // Default ctor
   AxDCTAprxTechnique (unsigned id,
-                     const ::std::string NabId)
-    : AprxTechnique (id),NabId(NabId) {
+                     const ::std::string OpId,
+                     const AxDCTAprxType type)
+    : AprxTechnique (id),OpId(OpId),type(type) {
   }
 
   //*-------------------------------------------------------------------*
@@ -49,8 +55,8 @@ public:
 
   /// \brief Retrive Id
   /// \return the string ID
-  const ::std::string& getNabId() const {
-      return NabId;
+  const ::std::string& getOpId() const {
+      return OpId;
   }
 
   //*-------------------------------------------------------------------*
@@ -59,8 +65,8 @@ public:
 
   /// \brief Set the Id
   /// \param The Id to set
-  void setNabId ( const ::std::string& NabId ) {
-      this->NabId = NabId;
+  void setOpId ( const ::std::string& OpId ) {
+      this->OpId = OpId;
   }
   /// \brief Set the OperandLHS
   /// \param The operand to set
@@ -98,7 +104,9 @@ public:
   ::std::string OperandRHS;
 
 private:
-  ::std::string NabId;        ///< Identifier of the operation
+  ::std::string OpId;        ///< Identifier of the operation
+  const AxDCTAprxType type = AxDCT_UNDEFINED;
+
 };
 
 #endif /* INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_ */

@@ -46,7 +46,7 @@ using namespace bellerophon;
 
 ::bellerophon::core::AprxGrade axdctcontext::AxDCTAprxContext::getMaxApplicableGrade() const
 {
-  return 32; //max bits that can be approximated
+  return 32; //max(bits that can be approximated, approximation value that loopbreak can have) = max(32,8) = 32
 }
 ::std::shared_ptr<core::AprxContext> getAxDCTAprxContext()
 {
@@ -85,26 +85,44 @@ bool axdctcontext::AxDCTAprxContext::readReport(::std::string reportPath)
   }
   constexpr char cols = 5;
   io::CSVReader<cols, io::trim_chars<' '>, io::double_quote_escape<',', '\"'>> axdct_report(reportPath);
-  ::std::string nabId;
+  ::std::string opId;
   int line;
   ::std::string Op1, Op2, OpRet; // Operands
 
   log::BellerophonLogger::verbose("Reading a AxDCT report:\n");
-  while (axdct_report.read_row(nabId, line, Op1, Op2, OpRet)) {
-    log::BellerophonLogger::verbose(
-      "NabId: " + nabId +
-      "\nOperand 1: " + Op1 + ", Operand 2: " + Op2 +
-      ", Return Operand: " + OpRet + ".\n\n");
+  while (axdct_report.read_row(opId, line, Op1, Op2, OpRet)) {
 
-    // Build an instance of AxDCTAprxTechnique 
-    AxDCTAprxTechnique  c(this->LocStartId,nabId);
-    this->LocStartId++;
-    c.setLHS(Op1);
-    c.setRHS(Op2);
-    // Build an instance of AprxLocation
-    core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
-    // Push back in AprxLocation Vector
-    v.push_back(l);
+    if(opId.rfind("nab",0) != ::std::string::npos) {
+      char info[100];
+      sprintf(info, "NabId: %s\nLine: %d\nOperand 1: %s, Operand 2: %s, Return Operand: %s.\n\n", opId.c_str(), line, Op1.c_str(), Op2.c_str(), OpRet.c_str());
+      log::BellerophonLogger::verbose(info);
+
+      // Build an instance of AxDCTAprxTechnique 
+      AxDCTAprxTechnique  c(this->LocStartId,opId, AxDCT_ADD);
+      this->LocStartId++;
+      c.setLHS(Op1);
+      c.setRHS(Op2);
+      // Build an instance of AprxLocation
+      core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
+      // Push back in AprxLocation Vector
+      v.push_back(l);
+
+    } else if(opId.rfind("base",0) != ::std::string::npos){
+      char info[100];
+      sprintf(info, "BaseId: %s\nLine: %d.\n\n", opId.c_str(), line);
+      log::BellerophonLogger::verbose(info);
+
+      // Build an instance of AxDCTAprxTechnique 
+      AxDCTAprxTechnique  c(this->LocStartId,opId, AxDCT_LOOPBREAK);
+      this->LocStartId++;
+      // Build an instance of AprxLocation
+      core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
+      // Push back in AprxLocation Vector
+      v.push_back(l);
+
+    } else log::BellerophonLogger::error( "\n**ERROR:\nUnexpected value id (" + opId + ") from CSV file.\n\n" );
+
+    
   }
   if(!v.empty())
     // Save the location Vector 

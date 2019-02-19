@@ -44,29 +44,62 @@ using namespace bellerophon;
 ::std::vector<::std::string> AxDCTAprxTechnique::getGlobalValueNames() const
 {
   ::std::vector<::std::string> names;
-  names.push_back(this->NabId);
+  names.push_back(this->OpId);
   return names;
 }
 
 void AxDCTAprxTechnique::applyApproximation(
     ::core::AprxGrade g, ::std::vector<uint64_t> addrs) const
 {
-  // Take the maximum
-  unsigned short maxNab = 32;
+  switch(this->type){
+    case AxDCT_ADD:
+      {
+        // Take the maximum
+        unsigned short maxGradeForNab = 32;
 
-  assert(g <= maxNab); // Precondition
+        if( !(g <= maxGradeForNab) ){ g=0; } //g has been set to an inacceptable value, so I put it to 0, that is "no approximation" 
 
-  // ::fap::FloatPrecTy *p = (::fap::FloatPrecTy *)addrs.at(0);
-  int *p = (int *)addrs.at(0);
+        // ::fap::FloatPrecTy *p = (::fap::FloatPrecTy *)addrs.at(0);
+        int *p = (int *)addrs.at(0);
 
-  log::BellerophonLogger::verbose(
-    "Address: " + ::std::to_string(addrs.at(0)) +
-    " - NAB: ("  +::std::to_string(*p) + ")\n");
+        log::BellerophonLogger::verbose(
+          "Address: " + ::std::to_string(addrs.at(0)) +
+          " - NAB: ("  +::std::to_string(*p) + ")\n");
 
-  *p = (g);
+        *p = (g);
 
-  log::BellerophonLogger::verbose(
-    "After approximation: NAB (" + ::std::to_string(*p) + ")\n");
+        log::BellerophonLogger::verbose( "After approximation: NAB (" + ::std::to_string(*p) + ")\n");
+
+        break;
+      }
+    
+    case AxDCT_LOOPBREAK:
+      {
+        // Take the maximum
+        unsigned short minGradeForBase = 8;
+
+        if( !(g <= minGradeForBase) ){ g=8; } //g has been set to an inacceptable value, so I put it to 8, that is "no approximation"
+
+        int *p = (int *)addrs.at(0);
+
+        log::BellerophonLogger::verbose(
+          "Address: " + ::std::to_string(addrs.at(0)) +
+          " - Base: ("  +::std::to_string(*p) + ")\n");
+
+        *p = (g);
+
+        log::BellerophonLogger::verbose( "After approximation: Base (" + ::std::to_string(*p) + ")\n");
+
+        break;
+      }
+
+    default:
+      {
+        log::BellerophonLogger::fatal("Unrecognized AxDCT Aprx type. Exiting.");
+        break;
+      }
+  }
+  
 }
 
 ::std::vector<::std::string> AxDCTAprxTechnique::applyApproximation(
@@ -74,17 +107,47 @@ void AxDCTAprxTechnique::applyApproximation(
 {
   ::std::vector<::std::string> args;
 
-  // Take the maximum
-  unsigned short maxNab = 32;
+  switch(this->type){
+    case AxDCT_ADD:
+    {
+      // Take the maximum
+      unsigned short maxGradeForNab = 32;
 
-  assert(g <= maxNab); // Precondition
+      if( !(g <= maxGradeForNab) ){ g=0; } //g has been set to an inacceptable value, so I put it to 0, that is "no approximation" 
 
-  ::std::string prec = "{" + ::std::to_string(g) + "}";
+      ::std::string prec = "{" + ::std::to_string(g) + "}";
 
-  args.push_back("-D" + this->NabId + "=" + prec + "");
-  log::BellerophonLogger::verbose(
-    "AprxLoxContext[" + ::std::to_string(this->Id) + "] - \n" +
-    "Adding argument: -D" + this->NabId + "=" + prec + "\n");
+      args.push_back("-D" + this->OpId + "=" + prec + "");
+      log::BellerophonLogger::verbose(
+        "AprxLoxContext[" + ::std::to_string(this->Id) + "] - \n" +
+        "Adding argument: -D" + this->OpId + "=" + prec + "\n");
+
+      break;
+    }
+    
+    case AxDCT_LOOPBREAK:
+    {
+      // Take the maximum
+      unsigned short minGradeForBase = 8;
+
+      if( !(g <= minGradeForBase) ){ g=8; } //g has been set to an inacceptable value, so I put it to 8, that is "no approximation" 
+
+      ::std::string prec = "{" + ::std::to_string(8-g) + "}";
+
+      args.push_back("-D" + this->OpId + "=" + prec + "");
+      log::BellerophonLogger::verbose(
+        "AprxLoxContext[" + ::std::to_string(this->Id) + "] - \n" +
+        "Adding argument: -D" + this->OpId + "=" + prec + "\n");
+
+      break;
+    }
+
+    default:
+    {
+      log::BellerophonLogger::fatal("Unrecognized AxDCT Aprx type. Exiting.");
+      break;
+    }
+  }
 
   return args;
 }
