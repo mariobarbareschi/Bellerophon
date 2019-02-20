@@ -19,32 +19,31 @@
  */
 
 /******************************************************************************
- * @file   InAx1AprxTechnique.h
+ * @file   AxDCTAprxContext.h
  * @author Andrea Aletto
- * @date   30 gen 2019
- * @brief  Implementation for the apprx Contexts of InAx1 library
+ * @date   18 feb 2019
+ * @brief  Declaration for the apprx Contexts of AxDCT library
  ******************************************************************************/
 
-#ifndef INCLUDE_BELLERO_INAX1APRXCONTEXT_H_
-#define INCLUDE_BELLERO_INAX1APRXCONTEXT_H_
+#ifndef INCLUDE_BELLERO_AXDCT_APRXCONTEXT_H_
+#define INCLUDE_BELLERO_AXDCT_APRXCONTEXT_H_
 
-#include "Plugins/FLAP/fap.h"
 #include "Core/AprxContext.h"
 
 
 namespace bellerophon{
-namespace inax1Context{
+namespace axdctcontext{
 
 
 
-class InAx1AprxContext : public bellerophon::core::AprxContext {
+class AxDCTAprxContext : public bellerophon::core::AprxContext {
 public:
-  InAx1AprxContext() { }
-  InAx1AprxContext (bellerophon::core::AprxContextIdTy id, const ::std::string& desc) 
+  AxDCTAprxContext() { }
+  AxDCTAprxContext (bellerophon::core::AprxContextIdTy id, const ::std::string& desc) 
       : AprxContext(id,desc) {
   }
   /// \brief destructor  
-  virtual ~InAx1AprxContext(){}
+  virtual ~AxDCTAprxContext(){}
   //*-------------------------------------------------------------------*
   // Set Methods
   //*-------------------------------------------------------------------*
@@ -72,7 +71,7 @@ public:
 }   // end bellerophon namespace
 
 /// \brief build specific AprxContext 
-/// \detailed build an instance of InAx1AprxContext
+/// \detailed build an instance of AxDCTAprxContext
 /// \return  Return the istance of flapContext to main program.
-::std::shared_ptr<::bellerophon::core::AprxContext> getInAx1AprxContext();
+::std::shared_ptr<::bellerophon::core::AprxContext> getAxDCTAprxContext();
 #endif

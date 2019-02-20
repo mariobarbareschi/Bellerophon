@@ -19,33 +19,34 @@
  */
 
 //===----------------------------------------------------------------------===//
-/// \file InAx1AprxTechnique.h
+/// \file AxDCTAprxTechnique.h
 /// \author Andrea Aletto
-/// \date  30 gen 2019
+/// \date  18 feb 2019
 /// \brief This file makes visible Approximate Context
 //===----------------------------------------------------------------------===//
-#ifndef INCLUDE_BELLEROPHON_INAX1APRXTECHNIQUE_H_
-#define INCLUDE_BELLEROPHON_INAX1APRXTECHNIQUE_H_
+#ifndef INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_
+#define INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_
 
 // Tools Headers
 #include "Core/AprxTechnique.h"
 // C/C++ Headers
 #include <cassert>
 
-namespace inax1
-{
+enum AxDCTAprxType {
+  AxDCT_ADD,
+  AxDCT_LOOPBREAK,
+  AxDCT_UNDEFINED
+};
 
-}
 
-using namespace inax1;
-
-class InAx1AprxTechnique : public ::bellerophon::core::AprxTechnique 
+class AxDCTAprxTechnique : public ::bellerophon::core::AprxTechnique 
 {
 public:
   // Default ctor
-  InAx1AprxTechnique (unsigned id,
-                     const ::std::string NabId)
-    : AprxTechnique (id),NabId(NabId) {
+  AxDCTAprxTechnique (unsigned id,
+                     const ::std::string OpId,
+                     const AxDCTAprxType type)
+    : AprxTechnique (id),OpId(OpId),type(type) {
   }
 
   //*-------------------------------------------------------------------*
@@ -54,8 +55,8 @@ public:
 
   /// \brief Retrive Id
   /// \return the string ID
-  const ::std::string& getNabId() const {
-      return NabId;
+  const ::std::string& getOpId() const {
+      return OpId;
   }
 
   //*-------------------------------------------------------------------*
@@ -64,8 +65,8 @@ public:
 
   /// \brief Set the Id
   /// \param The Id to set
-  void setNabId ( const ::std::string& NabId ) {
-      this->NabId = NabId;
+  void setOpId ( const ::std::string& OpId ) {
+      this->OpId = OpId;
   }
   /// \brief Set the OperandLHS
   /// \param The operand to set
@@ -103,7 +104,9 @@ public:
   ::std::string OperandRHS;
 
 private:
-  ::std::string NabId;        ///< Identifier of the operation
+  ::std::string OpId;        ///< Identifier of the operation
+  const AxDCTAprxType type = AxDCT_UNDEFINED;
+
 };
 
-#endif /* INCLUDE_IIDEAA_InAx1APRXTECHNIQUE_H_ */
+#endif /* INCLUDE_BELLEROPHON_AXDCTAPRXTECHNIQUE_H_ */
