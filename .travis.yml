@@ -20,7 +20,7 @@ before_install:
 # Clone LLVM/Clang repos
 - cd ..
 - /bin/bash -c "if [ ! -d \"llvm/.git\" ] ; then git clone https://github.com/llvm-mirror/llvm.git llvm && cd llvm && git checkout release_39 && cd tools && git clone https://github.com/llvm-mirror/clang.git clang && cd clang && git checkout release_39; fi"
-- cd ../..
+- cd llvm
 - mkdir -p build && cd build
 
 # Build and install LLVM/Clang 3.9.1
