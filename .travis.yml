@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 cache:
     directory:
-        $TRAVIS_BUILD_DIR/llvm
+        $TRAVIS_BUILD_DIR/../llvm
 language: C
 
 before_install:
