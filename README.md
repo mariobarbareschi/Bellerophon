@@ -32,9 +32,10 @@ $ tar xvfz ParadisEO-2.0.1.tar.gz && rm -f ParadisEO-2.0.1.tar.gz
 $ cd ParadisEO-2.0
 $ mkdir build && cd build
 ```
-Before running CMake, it is necessary to solve an issue due to the latest version of "CMake Policy Requirement". This issue can be easily solved, by upgrading to 3.3 the minimum CMake version of the package _eo_. 
+Before running CMake, it is necessary to solve two issues due to the latest version of "CMake Policy Requirement" and ConfigureChecks. These issues can be easily solved, by upgrading to 3.3 the minimum CMake version of the package _eo_ and commenting the inclusion of ConfigureCheks. 
 ```
 $ sed -i "s/CMAKE_MINIMUM_REQUIRED(VERSION 2.6)/CMAKE_MINIMUM_REQUIRED(VERSION 3.3)/g" ../eo/CMakeLists.txt
+$ sed -i "s/INCLUDE(ConfigureChecks.cmake)/#INCLUDE(ConfigureChecks.cmake)/g" ../eo/CMakeLists.txt
 ```
 
 Now it is possible to run CMake configuration. As well as Clang-Chimera, also for Bellerophon, a compilation with [Ninja](https://ninja-build.org/) building tool is recomended, in order to exploit the multicore platform by default.
