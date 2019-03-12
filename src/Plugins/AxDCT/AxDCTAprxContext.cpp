@@ -46,7 +46,7 @@ using namespace bellerophon;
 
 ::bellerophon::core::AprxGrade axdctcontext::AxDCTAprxContext::getMaxApplicableGrade() const
 {
-  return 32; //max(bits that can be approximated, approximation value that loopbreak can have) = max(32,8) = 32
+  return 15; //max(bits that can be approximated, approximation value that loopbreak can have) = max(32,8) = 32
 }
 ::std::shared_ptr<core::AprxContext> getAxDCTAprxContext()
 {
@@ -100,8 +100,8 @@ bool axdctcontext::AxDCTAprxContext::readReport(::std::string reportPath)
       // Build an instance of AxDCTAprxTechnique 
       AxDCTAprxTechnique  c(this->LocStartId,opId, AxDCT_ADD);
       this->LocStartId++;
-      c.setLHS(Op1);
-      c.setRHS(Op2);
+      // c.setLHS(Op1);
+      // c.setRHS(Op2);
       // Build an instance of AprxLocation
       core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
       // Push back in AprxLocation Vector

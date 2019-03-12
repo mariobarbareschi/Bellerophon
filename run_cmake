@@ -7,7 +7,7 @@ rm -Rf build
 mkdir build
 cd build
 paradiseo_path=$1
-if [[ -n "$paradiseo_path" ]]; then
+if [[ -n $paradiseo_path ]]; then
 	cmake .. -G Ninja -DLLVM_COMPS=$(echo $LLVM_LIBS) -DCMAKE_BUILD_TYPE=Release -DCMAKE_MODULE_PATH=${paradiseo_path}
 else
     cmake .. -G Ninja -DLLVM_COMPS=$(echo $LLVM_LIBS) -DCMAKE_BUILD_TYPE=Release -DCMAKE_MODULE_PATH=~/ParadisEO-2.0/cmake/module/

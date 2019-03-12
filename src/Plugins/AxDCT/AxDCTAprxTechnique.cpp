@@ -55,7 +55,7 @@ void AxDCTAprxTechnique::applyApproximation(
     case AxDCT_ADD:
       {
         // Take the maximum
-        unsigned short maxGradeForNab = 32;
+        unsigned short maxGradeForNab = 16;
 
         if( !(g <= maxGradeForNab) ){ g=0; } //g has been set to an inacceptable value, so I put it to 0, that is "no approximation" 
 
@@ -111,7 +111,7 @@ void AxDCTAprxTechnique::applyApproximation(
     case AxDCT_ADD:
     {
       // Take the maximum
-      unsigned short maxGradeForNab = 32;
+      unsigned short maxGradeForNab = 16;
 
       if( !(g <= maxGradeForNab) ){ g=0; } //g has been set to an inacceptable value, so I put it to 0, that is "no approximation" 
 
