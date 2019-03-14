@@ -93,6 +93,26 @@ void AxDCTAprxTechnique::applyApproximation(
         break;
       }
 
+    case AxDCT_CELLTYPE:
+      {
+        // Take the maximum
+        unsigned short maxEnumVal = 0;
+
+        if( !(g <= maxEnumVal) ){ g=(g%10); } //g has been set to an inacceptable value, so I put it to g%10 (10 is the number of available cells)
+
+        int *p = (int *)addrs.at(0);
+
+        log::BellerophonLogger::verbose(
+          "Address: " + ::std::to_string(addrs.at(0)) +
+          " - cell type: ("  +::std::to_string(*p) + ")\n");
+
+        *p = (g);
+
+        log::BellerophonLogger::verbose( "After approximation: cell type = (" + ::std::to_string(*p) + ")\n");
+
+        break;
+      }
+
     default:
       {
         log::BellerophonLogger::fatal("Unrecognized AxDCT Aprx type. Exiting.");
@@ -141,6 +161,23 @@ void AxDCTAprxTechnique::applyApproximation(
 
       break;
     }
+
+    case AxDCT_CELLTYPE:
+      {
+        // Take the maximum
+        unsigned short maxEnumVal = 0;
+
+        if( !(g <= maxEnumVal) ){ g=(g%10); } //g has been set to an inacceptable value, so I put it to g%10 (10 is the number of available cells)
+
+        ::std::string prec = "{" + ::std::to_string(g) + "}";
+
+        args.push_back("-D" + this->OpId + "=" + prec + "");
+        log::BellerophonLogger::verbose(
+          "AprxLoxContext[" + ::std::to_string(this->Id) + "] - \n" +
+          "Adding argument: -D" + this->OpId + "=" + prec + "\n");
+
+        break;
+      }
 
     default:
     {

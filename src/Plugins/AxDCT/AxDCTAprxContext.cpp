@@ -46,7 +46,7 @@ using namespace bellerophon;
 
 ::bellerophon::core::AprxGrade axdctcontext::AxDCTAprxContext::getMaxApplicableGrade() const
 {
-  return 15; //max(bits that can be approximated, approximation value that loopbreak can have) = max(32,8) = 32
+  return 15; //max(bits that can be approximated, approximation value that loopbreak can have, count of inexact cells) = max(16,8,10)-1 = 15
 }
 ::std::shared_ptr<core::AprxContext> getAxDCTAprxContext()
 {
@@ -100,8 +100,6 @@ bool axdctcontext::AxDCTAprxContext::readReport(::std::string reportPath)
       // Build an instance of AxDCTAprxTechnique 
       AxDCTAprxTechnique  c(this->LocStartId,opId, AxDCT_ADD);
       this->LocStartId++;
-      // c.setLHS(Op1);
-      // c.setRHS(Op2);
       // Build an instance of AprxLocation
       core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
       // Push back in AprxLocation Vector
@@ -114,6 +112,19 @@ bool axdctcontext::AxDCTAprxContext::readReport(::std::string reportPath)
 
       // Build an instance of AxDCTAprxTechnique 
       AxDCTAprxTechnique  c(this->LocStartId,opId, AxDCT_LOOPBREAK);
+      this->LocStartId++;
+      // Build an instance of AprxLocation
+      core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
+      // Push back in AprxLocation Vector
+      v.push_back(l);
+
+    } else if(opId.rfind("cellType",0) != ::std::string::npos){
+      char info[100];
+      sprintf(info, "CellId: %s\nLine: %d.\n\n", opId.c_str(), line);
+      log::BellerophonLogger::verbose(info);
+
+      // Build an instance of AxDCTAprxTechnique 
+      AxDCTAprxTechnique  c(this->LocStartId,opId, AxDCT_CELLTYPE);
       this->LocStartId++;
       // Build an instance of AprxLocation
       core::AprxLocation l(::std::make_shared<AxDCTAprxTechnique>(c));
