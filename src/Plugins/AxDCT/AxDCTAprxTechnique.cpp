@@ -96,7 +96,7 @@ void AxDCTAprxTechnique::applyApproximation(
     case AxDCT_CELLTYPE:
       {
         // Take the maximum
-        unsigned short maxEnumVal = 0;
+        unsigned short maxEnumVal = 10;
 
         if( !(g <= maxEnumVal) ){ g=(g%10); } //g has been set to an inacceptable value, so I put it to g%10 (10 is the number of available cells)
 
@@ -165,7 +165,7 @@ void AxDCTAprxTechnique::applyApproximation(
     case AxDCT_CELLTYPE:
       {
         // Take the maximum
-        unsigned short maxEnumVal = 0;
+        unsigned short maxEnumVal = 10;
 
         if( !(g <= maxEnumVal) ){ g=(g%10); } //g has been set to an inacceptable value, so I put it to g%10 (10 is the number of available cells)
 
