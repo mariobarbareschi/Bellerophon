@@ -35,6 +35,7 @@
 enum AxDCTAprxType {
   AxDCT_ADD,
   AxDCT_LOOPBREAK,
+  AxDCT_CELLTYPE,
   AxDCT_UNDEFINED
 };
 
