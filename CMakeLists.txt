@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.3)
 project("BELLEROPHON" VERSION 0.1 LANGUAGES C CXX)
+if(POLICY CMP0079)                                                              
+  cmake_policy(SET CMP0079 NEW)                                                 
+endif()
 
 # Requirements
 ## Require Include-What-You-Use
@@ -23,9 +26,24 @@ endif(IWYU)
 # Require C++11 features
 set(CMAKE_CXX_STANDARD 11)
 set(CXX_STANDARD_REQUIRED ON)
-set(CMAKE_BUILD_TYPE Debug)
-set(GCC_COVERAGE_COMPILE_FLAGS "-Wfatal-errors -Wwrite-strings")
-set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
+
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wno-format-truncation")
+
+else()
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+
+    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra -ggdb3 -O0 --coverage")
+
+    endif()
+    
+endif() 
 
 # set Paradiseo Module Path
 LIST(APPEND CMAKE_MODULE_PATH "/usr/local/share/paradiseo/module/") 
@@ -55,10 +73,12 @@ include_directories(${PARADISEO_INCLUDE_DIR})
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
 
-# Find the libraries that correspond to the LLVM/Clang components
-# that we wish to use
-llvm_map_components_to_libnames(llvm_libs all analysis asmparser asmprinter bitreader bitwriter bpf bpfasmprinter bpfcodegen bpfdesc bpfinfo codegen core coverage debuginfocodeview debuginfodwarf debuginfopdb engine executionengine globalisel hexagon hexagonasmparser hexagoncodegen hexagondesc hexagondisassembler hexagoninfo instcombine instrumentation interpreter ipo irreader libdriver lineeditor linker lto mc mcdisassembler mcjit mcparser mirparser native nativecodegen objcarcopts object objectyaml option orcjit passes profiledata runtimedyld scalaropts selectiondag support symbolize systemz systemzasmparser systemzasmprinter systemzcodegen systemzdesc systemzdisassembler systemzinfo tablegen target transformutils vectorize x86 x86asmparser x86asmprinter x86codegen x86desc x86disassembler x86info x86utils xcore xcoreasmprinter xcorecodegen xcoredesc xcoredisassembler xcoreinfo)
+SET(LLVM_COMPS "" CACHE LIST "Insert llvm components here") 
+message(STATUS "llvm_components:  ${LLVM_COMPS}")
 
+# Find the libraries that correspond to the LLVM/Clang components
+## Mapping components to libraries names
+llvm_map_components_to_libnames(llvm_libs ${LLVM_COMPS})
 
 
 list(APPEND clang_libs

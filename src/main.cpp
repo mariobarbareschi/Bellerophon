@@ -40,6 +40,8 @@
 #include "Plugins/VPA/VpaAprxContext.h"
 #include "Plugins/VPA_N/VpanAprxTechnique.h"
 #include "Plugins/VPA_N/VpanAprxContext.h"
+#include "Plugins/AxDCT/AxDCTAprxTechnique.h"
+#include "Plugins/AxDCT/AxDCTAprxContext.h"
 // C/C++ Headers
 #include <cstdlib>
 
@@ -54,7 +56,9 @@ main(int argc, const char *argv[]) {
   bellerophontool.registerAprxContext(getLoopAprxContext());
   bellerophontool.registerAprxContext(getVpaAprxContext());
   bellerophontool.registerAprxContext(getVpanAprxContext());
+  bellerophontool.registerAprxContext(getAxDCTAprxContext());
   // run tool 
   bellerophontool.run(argc,argv);
   return 0;
 }
+

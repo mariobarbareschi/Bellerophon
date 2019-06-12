@@ -1,62 +1,76 @@
-# BELLEROPHON #
-## AN EVOLUTE SEARCH ENGINE FOR APPROXIMATE COMPUTING ##
+# Bellerophon 
+[![Build Status](https://travis-ci.org/andreaaletto/Bellerophon.svg?branch=master)](https://travis-ci.org/andreaaletto/Bellerophon) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
 
 
+An evolute search engine for ***Approximate Computing***.
 
-### Introduction ###
-------------
 
+## Introduction
 
 Bellerophon is a genetic optimization tool for approximate computing.
 It is meant for using in collaboration with [clang-Chimera](https://github.com/ntonjeta/clang-chimera). Indeed, Clang-Chimera provides the code mutation feature, while Bellerophon uses Genetic Algorithm for explore approximate variants and finds the pareto-frontier solutions. Bellerophon includes the [ParadisEO](http://paradiseo.gforge.inria.fr/) metaheuristic framework.
 
-For more details about Bellerophon, visit the website [void](null)
+**Bellerophon** is part of the IIDEAA project. For further information, please refer to [IIDEAA website](http://wpage.unina.it/mario.barbareschi/old/iideaa/handson/).
 
 
-### Install ###
+## Build Bellerophon from source
+Now you will understand how to compile and install Bellerophon correctly.
 
-#### Requirement ####
+#### Install LLVM/Clang
+------------
+Bellerophon is intended to be used together with [Clang-Chimera](https://github.com/andreaaletto/clang-chimera), so you need to install LLVM/Clang in the same way as specified in [Clang-Chimera](https://github.com/andreaaletto/clang-chimera) readme, so please refer to its section _Install LLVM/Clang_.
+
+#### Install ParadisEO
 -------------
 
-Bellerophon requires LLVM/Clang3.9.1 compiled with following flag: 
+Bellerophon requires [ParadisEO](http://paradiseo.gforge.inria.fr/) metaheuristics framework. Use the following commands to download and install ParadisEO 2.0.1:
 
-* -DLLVM_ENABLE_CXX1Y=true
-* -DLLVM_ENABLE_RTTI=ON
+```
+$ cd ~
+$ wget https://gforge.inria.fr/frs/download.php/31732/ParadisEO-2.0.1.tar.gz
+$ tar xvfz ParadisEO-2.0.1.tar.gz && rm -f ParadisEO-2.0.1.tar.gz
+$ cd ParadisEO-2.0
+$ mkdir build && cd build
+```
+Before running CMake, it is necessary to solve two issues due to the latest version of "CMake Policy Requirement" and ConfigureChecks. These issues can be easily solved, by upgrading to 3.3 the minimum CMake version of the package _eo_ and commenting the inclusion of ConfigureCheks. 
+```
+$ sed -i "s/CMAKE_MINIMUM_REQUIRED(VERSION 2.6)/CMAKE_MINIMUM_REQUIRED(VERSION 3.3)/g" ../eo/CMakeLists.txt
+$ sed -i "s/INCLUDE(ConfigureChecks.cmake)/#INCLUDE(ConfigureChecks.cmake)/g" ../eo/CMakeLists.txt
+```
 
-NOTE: Bellerophon is developed and tested on a x86 architecture. In case you want run with other architectures, you have to make some changes:
+Now it is possible to run CMake configuration. As well as Clang-Chimera, also for Bellerophon, a compilation with [Ninja](https://ninja-build.org/) building tool is recomended, in order to exploit the multicore platform by default.
+```
+$ cmake .. -G Ninja
+$ ninja
+$ sudo ninja install
+```
 
-After install LLVM/Clang3.9.1 on your architecture launch:
+#### Install Bellerophon
+-------------
+First of all you need to download Bellerophon source and prepare it to the building phase:
+```
+$ cd ~
+$ git clone https://github.com/andreaaletto/Bellerophon.git
+$ cd Bellerophon
+```
+In order to build _Bellerohon_ it is necessary to adjust the ```CMakeLists.txt``` file, by adding the currently installed LLVM components and linking ParadisEO library. This can be automated with the script ```run_cmake``` (assuming that ParadisEO source is located in ```~/ParadisEO-2.0```):
+```
+$ chmod +x run_cmake
+$ ./run_cmake
+```
+Now you can build and install _Bellerophon_ with ninja-build:
+```
+$ ninja
+$ sudo ninja install
+```
+At the end of the process you will find Bellerophon in ``` /usr/local/bin```. Try run:
+``` 
+$ bellerophon -version
+``` 
 
-    llvm-config --componetns
-
-Take output and in CMakeLists.txt at instruction "llvm_map_components_to_libnames", change the list of components after llvm_libs with list of components outputed from previous command.  
-
-Bellerophon requires as a genetic algorithm framework the ParadisEO library avaiable at this link:
- 
-* http://paradiseo.gforge.inria.fr/
-
-
-
-#### Quick Start ####
---------
-
-For use bellerophon you can build it from source, as follow:
-
-    git clone https://github.com/ntonjeta/Bellerophon
-    cd Bellerophon
-    mkdir build
-    cd build
-    cmake ../ 
-    make
-    sudo make install
-
-#### Docker Container - for compiling unenthusiastic ### 
-
-Or you can use docker image for build a [container](https://github.com/mariobarbareschi/iideaa-docker)
-
-### How To Use ###
-Running the Bellerophon tool without input parameters print this short helper:
-
+## How To Use
+Running bellerophon without input parameters, it will print the following short helper:
+``` 
     OVERVIEW: Launch a design space exploration over a C/C++ project compiled just-in-time
 
     USAGE: bellerophon [subcommand] [options] <tau> <source0> [... <sourceN>]
@@ -85,29 +99,26 @@ Running the Bellerophon tool without input parameters print this short helper:
      -help                                     - Display available options (-help-hidden for more)
      -help-list                                - Display list of available options (-help-list-hidden for more)
      -version                                  - Display the version of this program
+``` 
 
-Bellerophon takes some inputs for testing the approimate variants.
-First, with -cd-dir flag it takes a [compilation database](http://clang.llvm.org/docs/JSONCompilationDatabase.html), useful for provide compilation commands to the JIT engine.
-With -r flag you can pass a report in CSV format that specifies in which place of the code Bellerophon has to apply approximation techniques. 
-This two inputs usually are geenerated and provided by [clang-Chimera](https://github.com/ntonjeta/clang-chimera).
+Bellerophon takes some inputs for testing the approximate variants.
+First, with ```-cd-dir``` flag, it takes a [compilation database](http://clang.llvm.org/docs/JSONCompilationDatabase.html), useful to provide compilation commands to the JIT engine.
+With ```-r```  flag you can pass a report in CSV format that specifies in which place of the code Bellerophon has to apply approximation techniques. 
+This two inputs usually are generated and provided by [Clang-Chimera](https://github.com/andreaaletto/clang-chimera).
 
-Bellerophon takes other inputs, such as the particular approximate computing technique that has to be applied by using the -t flag. 
-The flag -P provides a path to a .param file that specifies Genetic Algorithm parameters.
-Finaly, it is mandatory to specify a <tau> value, which is considered as the maximum error that each approximate configuration causes.   
+Bellerophon takes other inputs, such as the particular approximate computing technique that has to be applied by using the ```-t``` flag. 
+The flag ```-P``` provides a path to a ``` .param```  file that specifies Genetic Algorithm parameters.
+Finally, it is mandatory to specify a __tau__ value, which is considered as the maximum error that each approximate configuration causes.
 
+## Quick Start
+If you don't want to build LLVM/Clang and Bellerophon from scratch, a ready-to-use solution is provided through a [Docker](https://www.docker.com/) Container. Please refer to [IIDEAA Docker](https://github.com/andreaaletto/iideaa-docker) repository for further details.
 
-#### Example ####
--------- 
-
-You can test a simple exampe provide in repository, simply run the launch script.
-The example uses the bit lenght reduction approximate tecnhnique provided by [FLAP library](https://github.com/Ghost047/Fap) 
-
-### LICENSE ###
+#### LICENSE
 --------
 
 * [GPLV3.0](https://www.gnu.org/licenses/licenses.html)
 
-### Contributing ###
+#### Contributing
 ----------
 
 Github is for social coding: if you want to write code, I encourage contributions through pull requests from forks of this repository. 
