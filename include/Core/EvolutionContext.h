@@ -146,7 +146,7 @@ public:
   }
 
   bool setCDatabase(const ::std::string &cdpath){
-    this->eeHelper.setCompilationDatabase(cdpath);
+    return this->eeHelper.setCompilationDatabase(cdpath);
   }
  
   void setAprxLoc(const ::bellerophon::core::AprxLocationVector &v){this->locations=v;}
