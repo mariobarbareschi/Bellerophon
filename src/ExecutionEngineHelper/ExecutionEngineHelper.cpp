@@ -357,7 +357,7 @@ void bellerophon::engine::ExecutionEngineHelper::loadObj(const ::std::string &ob
       char *s = new char[objPath.length()];
       ::std::strcpy(s,objPath.c_str());
       std::string *error;
-      *error = "NO ERROR!";
+      //*error = "NO ERROR!";
       //Shared object loading
       if(so.LoadLibraryPermanently(s, error)) { 
         //Print any evantual error (not due to loading)
