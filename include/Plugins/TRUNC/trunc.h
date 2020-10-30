@@ -11,14 +11,14 @@ class ax_integer
     
     ////////////////////////////////////////////////////////////////////////////
     /// Constructors
-    explicit ax_integer(uint8_t nab, int8_t value) : internal_type(int8), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, int16_t value) : internal_type(int16), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, int32_t value) : internal_type(int32), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, int64_t value) : internal_type(int64), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, uint8_t value) : internal_type(uint8), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, uint16_t value) : internal_type(uint16), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, uint32_t value) : internal_type(uint32), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    explicit ax_integer(uint8_t nab, uint64_t value) : internal_type(uint64), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
+    explicit ax_integer(uint8_t nab, int8_t value);
+    explicit ax_integer(uint8_t nab, int16_t value);
+    explicit ax_integer(uint8_t nab, int32_t value);
+    explicit ax_integer(uint8_t nab, int64_t value);
+    explicit ax_integer(uint8_t nab, uint8_t value);
+    explicit ax_integer(uint8_t nab, uint16_t value);
+    explicit ax_integer(uint8_t nab, uint32_t value);
+    explicit ax_integer(uint8_t nab, uint64_t value);
     
     ////////////////////////////////////////////////////////////////////////////
     /// Assignment operators
@@ -64,23 +64,19 @@ class ax_integer
 
     ////////////////////////////////////////////////////////////////////////////
     /// Getter
-    uint8_t getNab() const {return nab;}
+    uint8_t getNab() const {return num_approx_bits;}
     uint64_t getMask() const {return apprx_mask;}
     uint8_t getMaxApprxGrade() const;
-    
-    ////////////////////////////////////////////////////////////////////////////
-    /// Setter
-    void setNAB(uint8_t newnab) {nab = newnab; apprx_mask = axmask(nab);}
   
   private:
     enum internal_type_t{int8, int16, int32, uint8, uint16, uint32, int64, uint64};
     internal_type_t internal_type;
-    uint8_t nab;
+    uint8_t num_approx_bits;
     uint64_t actual_value;
     uint64_t apprx_mask;
     
-    explicit ax_integer(uint8_t nab, internal_type_t type, uint64_t value) : internal_type(type), nab(nab), actual_value(value), apprx_mask(axmask(nab)) {}
-    inline uint64_t axmask(uint8_t nab) {return (nab > 0 ? ~((1U << nab)-1) : 0xffffffffffffffff);}
+    explicit ax_integer(uint8_t nab, internal_type_t type, uint64_t value);
+    void axmask();
     inline bool is_signed() const;
 
 };

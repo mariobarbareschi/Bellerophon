@@ -66,21 +66,17 @@ TruncAprxTechnique::TruncAprxTechnique (
   ::std::vector<::std::string> names;
   names.push_back(this->OpId);
   return names;
+  
 }
 
 void TruncAprxTechnique::applyApproximation(
     ::core::AprxGrade g, ::std::vector<uint64_t> addrs) const
 {
-  truncate::ax_integer *axi = (truncate::ax_integer*)addrs.at(0);
+  int* nab = (int*)addrs.at(0);
   char message[100];
-  sprintf(message, "Address: %016x, NAB: %d, MASK: %016x\n", axi, axi->getNab(), axi->getMask());
+  sprintf(message, "Address: %016lx, Actual grade: %d, New grade %d", nab, *nab, g);
   log::BellerophonLogger::verbose(message);
-  uint8_t maxGrade = axi->getMaxApprxGrade();
-  if (g > maxGrade) g = maxGrade;
-  axi->setNAB(g);
-  sprintf(message, "Address: %016x, NAB: %d, MASK: %016x\n", axi, axi->getNab(), axi->getMask());
-
-  log::BellerophonLogger::verbose(message);
+  *nab = g;
 }
 
 ::std::vector<::std::string> TruncAprxTechnique::applyApproximation(
