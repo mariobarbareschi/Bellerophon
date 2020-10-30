@@ -41,3 +41,5 @@ settings.json
 .idea/
 
 cmake-build-debug/
+
+tags
