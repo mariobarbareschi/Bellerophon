@@ -77,10 +77,11 @@ bool TruncContext::TruncAprxContext::readReport(::std::string reportPath)
   else return false;
     return true;
 }
+
 ::std::shared_ptr<::bellerophon::core::AprxContext> getTruncAprxContext()
 {
-  return ::std::shared_ptr<bellerophon::TruncContext::TruncAprxContext> (
-    new bellerophon::TruncContext::TruncAprxContext(
-      "TruncAprx",
-      "Integer truncate approximation plugin"));
+  static ::std::shared_ptr<bellerophon::TruncContext::TruncAprxContext> shr_ptr;
+  if (shr_ptr == NULL)
+    shr_ptr = ::std::shared_ptr<bellerophon::TruncContext::TruncAprxContext>(new bellerophon::TruncContext::TruncAprxContext("TruncAprx","Integer truncate approximation plugin"));
+  return shr_ptr;
 }

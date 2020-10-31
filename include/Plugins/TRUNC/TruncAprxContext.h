@@ -37,9 +37,8 @@ namespace TruncContext{
 
 class TruncAprxContext : public bellerophon::core::AprxContext {
 public:
-  TruncAprxContext() {}
   
-  TruncAprxContext (bellerophon::core::AprxContextIdTy id, const ::std::string& desc) : AprxContext(id,desc) {}
+  TruncAprxContext (bellerophon::core::AprxContextIdTy id, const ::std::string& desc, int grade = 64) : AprxContext(id,desc), maxApproxGrade(grade) {}
   
   /// \brief destructor  
   virtual ~TruncAprxContext(){}
@@ -74,8 +73,13 @@ public:
   /// \return Maximum approximation grade applicable
   virtual ::bellerophon::core::AprxGrade getMaxApplicableGrade() const override
   {
-    return 64;
+    return maxApproxGrade;
   }
+  
+  void setMaxApplicableGrade(int grade) {maxApproxGrade = grade;}
+  
+  private:
+    int maxApproxGrade;
   
 };  // end class definition
 
