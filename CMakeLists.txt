@@ -37,19 +37,17 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 
 else()
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-
     set(CMAKE_BUILD_TYPE Debug)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra -ggdb3 -O0 --coverage")
-
     endif()
-    
-endif() 
+endif()
 
 # set Paradiseo Module Path
 LIST(APPEND CMAKE_MODULE_PATH "/usr/local/share/paradiseo/module/") 
 # Required packages
 # Require LLVM and Clang
 find_package(LLVM 3.9.1 REQUIRED CONFIG)
+# find_package(LLVM 7.0.1 REQUIRED CONFIG)
 # Require Paradiseo 2.0
 find_package(Paradiseo COMPONENTS moeo eoutils eo)
 
