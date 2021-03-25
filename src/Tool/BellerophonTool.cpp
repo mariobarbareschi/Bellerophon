@@ -39,6 +39,7 @@
 
 // Plugin headers
 #include "Plugins/TRUNC/TruncAprxContext.h"
+#include "Plugins/EvoApprox8/EvoAprxContext.h"
 
 // C/C++ Header
 #include <cstdlib>
@@ -186,6 +187,8 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
   {
     bellerophon::TruncContext::TruncAprxContext* ctnx = (bellerophon::TruncContext::TruncAprxContext*) getTruncAprxContext().get();
     ctnx->setMaxApplicableGrade(::std::stoi(maxApproxGrade));
+    bellerophon::EvoApproxLib::EvoAprxContext* evoctnx = (bellerophon::EvoApproxLib::EvoAprxContext*) getEvoAprxContext().get();
+    evoctnx->setMaxApplicableGrade(::std::stoi(maxApproxGrade));
     log::BellerophonLogger::verbose("Max approx. grade: " + maxApproxGrade);
   }
   
