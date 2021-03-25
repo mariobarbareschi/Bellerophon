@@ -43,3 +43,5 @@ settings.json
 cmake-build-debug/
 
 tags
+
+*.code-workspace
