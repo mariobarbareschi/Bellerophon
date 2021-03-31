@@ -65,12 +65,16 @@ private:
 
     int8_t add8s (int8_t addendum1, int8_t addendum2) const;
     int16_t mul8s (int8_t multiplicand, int8_t multiplier) const;
+
     uint8_t add8u (uint8_t addendum1, uint8_t addendum2) const;
     uint16_t mul8u (uint8_t multiplicand, uint8_t multiplier) const;
-    int16_t add16s (uint8_t addendum1, uint8_t addendum2) const;
-    int32_t mul16s (uint8_t multiplicand, uint8_t multiplier) const;
-    uint16_t add16u (uint8_t addendum1, uint8_t addendum2) const;
-    uint32_t mul16u (uint8_t multiplicand, uint8_t multiplier) const;
+    
+    int16_t add16s (int16_t addendum1, int16_t addendum2) const;
+    int32_t mul16s (int16_t multiplicand, int16_t multiplier) const;
+
+    uint16_t add16u (uint16_t addendum1, uint16_t addendum2) const;
+    uint32_t mul16u (uint16_t multiplicand, uint16_t multiplier) const;
+    
     float add8s_power() const;
     float add8s_area() const;
     float mul8s_power() const;

@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <limits>
+#include <stdio.h>
 
 using namespace evoapproxlib;
 
@@ -474,7 +475,7 @@ float evoapproxlib::evoapprox_t::mul8u_area() const
   return mult_8u_array[approx_component].area;
 }
 
-int16_t  evoapproxlib::evoapprox_t::add16s (uint8_t addendum1, uint8_t addendum2) const {
+int16_t  evoapproxlib::evoapprox_t::add16s (int16_t addendum1, int16_t addendum2) const {
    assert (approx_component < add_16s_N);
    return add_16s_array[approx_component].fptr(addendum1, addendum2);
 }
@@ -489,7 +490,8 @@ float   evoapproxlib::evoapprox_t::add16s_area() const {
    return add_16s_array[approx_component].area;
 }
 
-int32_t  evoapproxlib::evoapprox_t::mul16s (uint8_t multiplicand, uint8_t multiplier) const {
+int32_t  evoapproxlib::evoapprox_t::mul16s (int16_t multiplicand, int16_t multiplier) const {
+   //printf("%s (%d) %d * %d = %d\n", __func__, approx_component, multiplicand, multiplier, mul_16s_array[approx_component].fptr(multiplicand, multiplier));
    assert (approx_component < mul_16s_N);
    return mul_16s_array[approx_component].fptr(multiplicand, multiplier);
 }
@@ -504,7 +506,7 @@ float   evoapproxlib::evoapprox_t::mul16s_area() const {
    return mul_16s_array[approx_component].area;
 }
 
-uint16_t evoapproxlib::evoapprox_t::add16u (uint8_t addendum1, uint8_t addendum2) const {
+uint16_t evoapproxlib::evoapprox_t::add16u (uint16_t addendum1, uint16_t addendum2) const {
    assert (approx_component < add_16u_N);
    return add_16u_array[approx_component].fptr(addendum1, addendum2);
 }
@@ -519,7 +521,8 @@ float   evoapproxlib::evoapprox_t::add16u_area() const {
    return add_16u_array[approx_component].area;
 }
 
-uint32_t evoapproxlib::evoapprox_t::mul16u (uint8_t multiplicand, uint8_t multiplier) const {
+uint32_t evoapproxlib::evoapprox_t::mul16u (uint16_t multiplicand, uint16_t multiplier) const {
+   //printf("%s (%d) %d * %d = %d \n", __func__, approx_component, multiplicand, multiplier, mul_16u_array[approx_component].fptr(multiplicand, multiplier));
    assert (approx_component < mul_16u_N);
    return mul_16u_array[approx_component].fptr(multiplicand, multiplier);
 }
