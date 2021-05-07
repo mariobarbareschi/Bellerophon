@@ -37,3 +37,11 @@ FlowShopEA.param
 settings.json
 .vscode
 .vscode/*
+
+.idea/
+
+cmake-build-debug/
+
+tags
+
+*.code-workspace

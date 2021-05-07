@@ -37,6 +37,10 @@
 
 #include "clang/Tooling/CommonOptionsParser.h"
 
+// Plugin headers
+#include "Plugins/TRUNC/TruncAprxContext.h"
+#include "Plugins/EvoApprox8/EvoAprxContext.h"
+
 // C/C++ Header
 #include <cstdlib>
 
@@ -114,11 +118,16 @@ static ::llvm::cl::OptionCategory catBellerophon("Bellerophon",
   ::llvm::cl::ValueRequired,
   ::llvm::cl::cat(catBellerophon));
 
+::llvm::cl::opt<::std::string> maxApproxGrade(
+  "maxGrade",
+  ::llvm::cl::desc(
+    "Specify the maximum approximation grade to be applied"),
+  ::llvm::cl::ValueRequired,
+  ::llvm::cl::cat(catBellerophon));
+
 // TODO Add CLI option for Evolution Context Parameter File
 static ::llvm::cl::OptionCategory catEvolution("Evolution",
                                           "Options for Evolution Algorithm");
-
-
 
 // Utility functions
 bool tool::BellerophonTool::optIsOccured(const ::std::string &optString, int argc, const char **argv) 
@@ -167,13 +176,22 @@ void tool::BellerophonTool::run(int argc, const char *argv[]) {
 
   // Parsing options
   ::llvm::cl::ParseCommandLineOptions(argc, argv, "Bellerophon");
-  
+
   // Init the verbose output
   if (optVerbose) {
     log::BellerophonLogger::initVerbose();
     log::BellerophonLogger::setVerboseLevel(9);
   }
-
+  
+  if (!maxApproxGrade.empty())
+  {
+    bellerophon::TruncContext::TruncAprxContext* ctnx = (bellerophon::TruncContext::TruncAprxContext*) getTruncAprxContext().get();
+    ctnx->setMaxApplicableGrade(::std::stoi(maxApproxGrade));
+    bellerophon::EvoApproxLib::EvoAprxContext* evoctnx = (bellerophon::EvoApproxLib::EvoAprxContext*) getEvoAprxContext().get();
+    evoctnx->setMaxApplicableGrade(::std::stoi(maxApproxGrade));
+    log::BellerophonLogger::verbose("Max approx. grade: " + maxApproxGrade);
+  }
+  
   if(!optTau){
     log::BellerophonLogger::error("The maximum error value is missing");
     exit(1); 

@@ -42,13 +42,15 @@
 #include "Plugins/VPA_N/VpanAprxContext.h"
 #include "Plugins/AxDCT/AxDCTAprxTechnique.h"
 #include "Plugins/AxDCT/AxDCTAprxContext.h"
+#include "Plugins/TRUNC/TruncAprxContext.h"
+#include "Plugins/EvoApprox8/EvoAprxContext.h"
 // C/C++ Headers
 #include <cstdlib>
 
 using namespace std;
 using namespace bellerophon;
  
-main(int argc, const char *argv[]) {
+int main(int argc, const char *argv[]) {
   tool::BellerophonTool bellerophontool;
 
   //Register user's plugins
@@ -57,6 +59,8 @@ main(int argc, const char *argv[]) {
   bellerophontool.registerAprxContext(getVpaAprxContext());
   bellerophontool.registerAprxContext(getVpanAprxContext());
   bellerophontool.registerAprxContext(getAxDCTAprxContext());
+  bellerophontool.registerAprxContext(getTruncAprxContext());
+  bellerophontool.registerAprxContext(getEvoAprxContext());
   // run tool 
   bellerophontool.run(argc,argv);
   return 0;
